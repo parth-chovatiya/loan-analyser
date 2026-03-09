@@ -1,0 +1,42 @@
+It shows multiple strategy recommendation. I don't wanna show the loan switching strategy, Also, one strategy shows 3 times like increase emi by 20%, 15%, 10%. etc... Lets reduce the strategy and shows the only impactful one.
+
+---
+
+I was getting an error: "ENOENT: no such file or directory, open '/Users/parth/Parth/Dev/Projects/loan-analyser/.next/server/pages/_document.js'
+
+"
+Please fix it
+
+---
+
+Great! Now, Can we please write a good production ready code... As right now, all functions, APIs are in one file. Lets seprate it to multiple files, also lets write a arrow functions etc...
+
+---
+
+I notice one problem. Right now, file was saved. And when I save manually with laptop, the structure change. Lets keep one structure when file is saved. Please implement it and give me working code
+
+---
+
+Now, lets Make a good UI/UX. Like, change the top bar, make component interective, etc... and make it good user friendly. And give me woroking code.
+
+---
+
+Great! Now, there are many places where the pointer should be cursor. Please implement that. Also, Please allow option to edit the pre-payment and rate changes details.
+
+---
+
+Great! Now, can you please change the nessessory informations to rank this website. Also please create a favcone and add it.
+
+---
+
+Now there are many cards. Lets add one icon (info type icon), on hover of it, lets show the tooltip about what that matrics is about in simple language so that user can understand it.
+
+---
+
+I was getting an error: The default export is not a React Component in "/layout"
+
+Please fix it and give me working code
+
+---
+
+Please implement this analytics: https://vercel.com/docs/analytics/quickstart#add-the-analytics-component-to-your-app
