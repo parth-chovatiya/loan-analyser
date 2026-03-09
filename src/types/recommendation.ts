@@ -1,6 +1,6 @@
 export interface Recommendation {
   id: string;
-  type: 'prepayment' | 'refinance' | 'emi_increase' | 'lump_sum_timing';
+  type: 'prepayment' | 'emi_increase' | 'lump_sum_timing';
   title: string;
   description: string;
   impact: {

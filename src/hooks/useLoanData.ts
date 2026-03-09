@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import type { LoanInput, PrePayment, RateChange } from '../types/loan';
 import { loadState, saveState } from '../utils/storage';
 
-export function useLoanData() {
+export const useLoanData = () => {
   const [loan, setLoan] = useState<LoanInput | null>(null);
   const [prePayments, setPrePayments] = useState<PrePayment[]>([]);
   const [rateChanges, setRateChanges] = useState<RateChange[]>([]);
@@ -28,25 +28,34 @@ export function useLoanData() {
     return () => clearTimeout(saveTimer.current);
   }, [loan, prePayments, rateChanges]);
 
-  const addPrePayment = useCallback((pp: PrePayment) => {
-    setPrePayments((prev) => [...prev, pp]);
-  }, []);
+  const addPrePayment = useCallback(
+    (pp: PrePayment) => setPrePayments((prev) => [...prev, pp]),
+    [],
+  );
 
-  const removePrePayment = useCallback((id: string) => {
-    setPrePayments((prev) => prev.filter((pp) => pp.id !== id));
-  }, []);
+  const removePrePayment = useCallback(
+    (id: string) => setPrePayments((prev) => prev.filter((pp) => pp.id !== id)),
+    [],
+  );
 
-  const addRateChange = useCallback((rc: RateChange) => {
-    setRateChanges((prev) => [...prev, rc]);
-  }, []);
+  const addRateChange = useCallback(
+    (rc: RateChange) => setRateChanges((prev) => [...prev, rc]),
+    [],
+  );
 
-  const removeRateChange = useCallback((id: string) => {
-    setRateChanges((prev) => prev.filter((rc) => rc.id !== id));
-  }, []);
+  const removeRateChange = useCallback(
+    (id: string) => setRateChanges((prev) => prev.filter((rc) => rc.id !== id)),
+    [],
+  );
 
   return {
-    loan, setLoan,
-    prePayments, addPrePayment, removePrePayment,
-    rateChanges, addRateChange, removeRateChange,
+    loan,
+    setLoan,
+    prePayments,
+    addPrePayment,
+    removePrePayment,
+    rateChanges,
+    addRateChange,
+    removeRateChange,
   };
-}
+};

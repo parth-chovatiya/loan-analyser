@@ -2,11 +2,11 @@ import { useState, useCallback } from 'react';
 import type { LoanInput, PrePayment, RateChange } from '../types/loan';
 import type { RecommendResponse } from '../types/recommendation';
 
-export function useRecommendations(
+export const useRecommendations = (
   loan: LoanInput | null,
   prePayments: PrePayment[],
-  rateChanges: RateChange[]
-) {
+  rateChanges: RateChange[],
+) => {
   const [data, setData] = useState<RecommendResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -35,4 +35,4 @@ export function useRecommendations(
   }, [loan, prePayments, rateChanges]);
 
   return { data, loading, error, fetchRecommendations };
-}
+};

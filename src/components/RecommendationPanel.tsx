@@ -10,7 +10,6 @@ interface Props {
 
 const typeLabels: Record<Recommendation['type'], string> = {
   prepayment: 'Prepayment',
-  refinance: 'Refinancing',
   emi_increase: 'EMI Increase',
   lump_sum_timing: 'Lump Sum Timing',
 };

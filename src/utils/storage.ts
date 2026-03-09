@@ -8,17 +8,23 @@ export interface StoredState {
   rateChanges: RateChange[];
 }
 
-export function loadState(): StoredState {
+const DEFAULT_STATE: StoredState = {
+  loan: null,
+  prePayments: [],
+  rateChanges: [],
+};
+
+export const loadState = (): StoredState => {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { loan: null, prePayments: [], rateChanges: [] };
+    if (!raw) return DEFAULT_STATE;
     const parsed = JSON.parse(raw);
-    return { loan: null, prePayments: [], rateChanges: [], ...parsed } as StoredState;
+    return { ...DEFAULT_STATE, ...parsed } as StoredState;
   } catch {
-    return { loan: null, prePayments: [], rateChanges: [] };
+    return DEFAULT_STATE;
   }
-}
+};
 
-export function saveState(state: StoredState): void {
+export const saveState = (state: StoredState): void => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
+};

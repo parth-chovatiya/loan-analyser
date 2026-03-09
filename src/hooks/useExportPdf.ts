@@ -1,6 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 
-export function useExportPdf() {
+export const useExportPdf = () => {
   const reportRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const filenameRef = useRef<string | null>(null);
@@ -59,4 +59,4 @@ export function useExportPdf() {
   );
 
   return { reportRef, isGenerating, exportPdf };
-}
+};
