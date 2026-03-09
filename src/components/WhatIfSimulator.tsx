@@ -45,37 +45,64 @@ export function WhatIfSimulator({
       }
     : null;
 
+  const inputClass =
+    'rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-amber-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-amber-500/20';
+
   return (
-    <div className="rounded-xl border-2 border-dashed border-amber-300 bg-amber-50/50 p-6 shadow-sm">
+    <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between"
+        className="flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-slate-50/50"
       >
-        <div className="text-left">
-          <h2 className="text-lg font-semibold text-gray-900">What-If Simulator</h2>
-          <p className="text-sm text-gray-500">
-            Plan future pre-payments and see how they impact your loan, charts &amp; table
-          </p>
+        <div className="flex items-center gap-4">
+          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 shadow-md shadow-amber-500/20">
+            <svg
+              className="h-5 w-5 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
+              />
+            </svg>
+          </div>
+          <div>
+            <h2 className="text-base font-bold text-slate-900">What-If Simulator</h2>
+            <p className="text-xs text-slate-500">Plan future pre-payments and see the impact</p>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           {plannedPPs.length > 0 && (
-            <span className="rounded-full bg-amber-200 px-2.5 py-0.5 text-xs font-semibold text-amber-800">
-              {plannedPPs.length} planned
+            <span className="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-amber-100 px-2 text-xs font-bold text-amber-700">
+              {plannedPPs.length}
             </span>
           )}
-          <span className="text-2xl text-amber-600">{isOpen ? '\u25B2' : '\u25BC'}</span>
+          <svg
+            className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </button>
 
       {isOpen && (
-        <div className="mt-5 space-y-5">
-          {/* Add planned pre-payment form */}
+        <div className="border-t border-slate-100 px-6 py-5 space-y-5">
           <form onSubmit={handleAdd} className="flex flex-wrap items-end gap-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Planned Date</label>
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                Planned Date
+              </label>
               <input
                 type="date"
-                className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
+                className={inputClass}
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 min={defaultMinDate}
@@ -83,112 +110,132 @@ export function WhatIfSimulator({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Amount (₹)</label>
-              <input
-                type="number"
-                className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="e.g. 500000"
-                required
-                min="1"
-              />
+              <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
+                Amount
+              </label>
+              <div className="relative">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-slate-400">
+                  &#8377;
+                </span>
+                <input
+                  type="number"
+                  className={`${inputClass} pl-8`}
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="5,00,000"
+                  required
+                  min="1"
+                />
+              </div>
             </div>
             <button
               type="submit"
-              className="rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-700"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-amber-600 hover:shadow-md active:scale-[0.98]"
             >
-              Add to Simulation
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="2"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              Simulate
             </button>
           </form>
 
-          {/* Planned pre-payments list */}
           {sortedPlanned.length > 0 && (
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm">
-                <thead>
-                  <tr className="border-b border-amber-200 text-gray-600">
-                    <th className="pb-2 pr-4 font-medium">Planned Date</th>
-                    <th className="pb-2 pr-4 font-medium">Amount</th>
-                    <th className="pb-2 font-medium"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sortedPlanned.map((pp) => (
-                    <tr key={pp.id} className="border-b border-amber-100 last:border-0">
-                      <td className="py-2 pr-4">{formatDateFull(pp.date)}</td>
-                      <td className="py-2 pr-4 font-medium">{formatCurrency(pp.amount)}</td>
-                      <td className="py-2">
-                        <button
-                          onClick={() => onRemove(pp.id)}
-                          className="text-red-500 hover:text-red-700 text-sm"
-                        >
-                          Remove
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="space-y-2">
+              {sortedPlanned.map((pp) => (
+                <div
+                  key={pp.id}
+                  className="group flex items-center justify-between rounded-xl border border-amber-100 bg-amber-50/50 px-4 py-3"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-600">
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="2"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900">
+                        {formatCurrency(pp.amount)}
+                      </p>
+                      <p className="text-xs text-slate-500">{formatDateFull(pp.date)}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => onRemove(pp.id)}
+                    className="rounded-lg p-1.5 text-slate-400 opacity-0 transition-all hover:bg-red-50 hover:text-red-500 group-hover:opacity-100"
+                  >
+                    <svg
+                      className="h-4 w-4"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              ))}
             </div>
           )}
 
-          {/* Impact results */}
           {impact && (
-            <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                Projected Impact
-              </h3>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                    Additional Interest Saved
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                {
+                  label: 'Interest Saved',
+                  value: formatCurrency(impact.interestSaved),
+                  sub: `investing ${formatCurrency(impact.totalPlanned)}`,
+                  color: 'text-emerald-600 bg-emerald-50 border-emerald-100',
+                },
+                {
+                  label: 'Months Reduced',
+                  value: `${impact.monthsSaved} months`,
+                  sub: `${currentResult.totalMonths} to ${simulatedResult!.totalMonths}`,
+                  color: 'text-blue-600 bg-blue-50 border-blue-100',
+                },
+                {
+                  label: 'New Closure',
+                  value: formatDate(impact.newClosureDate),
+                  sub: `was ${formatDate(currentResult.closureDate)}`,
+                  color: 'text-violet-600 bg-violet-50 border-violet-100',
+                },
+                {
+                  label: 'ROI',
+                  value: `${((impact.interestSaved / impact.totalPlanned) * 100).toFixed(1)}%`,
+                  sub: 'per rupee invested',
+                  color: 'text-amber-600 bg-amber-50 border-amber-100',
+                },
+              ].map((card) => (
+                <div key={card.label} className={`rounded-xl border p-4 ${card.color}`}>
+                  <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">
+                    {card.label}
                   </p>
-                  <p className="mt-1 text-xl font-bold text-green-700">
-                    {formatCurrency(impact.interestSaved)}
-                  </p>
-                  <p className="mt-1 text-xs text-gray-500">
-                    by investing {formatCurrency(impact.totalPlanned)}
-                  </p>
+                  <p className="mt-1 text-xl font-bold">{card.value}</p>
+                  <p className="mt-0.5 text-xs opacity-60">{card.sub}</p>
                 </div>
-                <div className="rounded-lg border border-green-200 bg-green-50 p-4">
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                    Months Reduced
-                  </p>
-                  <p className="mt-1 text-xl font-bold text-green-700">
-                    {impact.monthsSaved} months
-                  </p>
-                  <p className="mt-1 text-xs text-gray-500">
-                    from {currentResult.totalMonths} to {simulatedResult!.totalMonths} months
-                  </p>
-                </div>
-                <div className="rounded-lg border border-purple-200 bg-purple-50 p-4">
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                    New Closure Date
-                  </p>
-                  <p className="mt-1 text-xl font-bold text-purple-700">
-                    {formatDate(impact.newClosureDate)}
-                  </p>
-                  <p className="mt-1 text-xs text-gray-500">
-                    currently {formatDate(currentResult.closureDate)}
-                  </p>
-                </div>
-                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                    Return on Pre-Payment
-                  </p>
-                  <p className="mt-1 text-xl font-bold text-blue-700">
-                    {((impact.interestSaved / impact.totalPlanned) * 100).toFixed(1)}%
-                  </p>
-                  <p className="mt-1 text-xs text-gray-500">interest saved per rupee invested</p>
-                </div>
-              </div>
+              ))}
             </div>
           )}
 
           {plannedPPs.length === 0 && (
-            <p className="text-sm text-gray-400 italic">
-              Add a planned pre-payment above to see projected impact on your loan.
+            <p className="text-sm text-slate-400 italic text-center py-4">
+              Add a planned pre-payment to see the projected impact
             </p>
           )}
         </div>

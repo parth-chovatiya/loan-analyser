@@ -54,8 +54,8 @@ export function BalanceChart({ summary, simulatedResult }: Props) {
   });
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900">Outstanding Balance Over Time</h3>
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h3 className="mb-4 text-lg font-bold text-slate-900">Outstanding Balance Over Time</h3>
       <ResponsiveContainer width="100%" height={350}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />

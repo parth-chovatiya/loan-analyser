@@ -34,8 +34,8 @@ export function YearlySummaryChart({ schedule, isSimulated }: Props) {
   }));
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900">
+    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h3 className="mb-4 text-lg font-bold text-slate-900">
         Yearly Summary
         {isSimulated && (
           <span className="ml-2 text-sm font-normal text-amber-600">(simulated)</span>
