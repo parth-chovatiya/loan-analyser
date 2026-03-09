@@ -3,9 +3,14 @@
   "checkpoint_id": "ddbf53f9d869",
   "strategy": "manual-commit",
   "branch": "main",
-  "checkpoints_count": 0,
+  "checkpoints_count": 3,
   "files_touched": [
-    "src/App.tsx"
+    "package-lock.json",
+    "package.json",
+    "src/App.tsx",
+    "src/components/pdf/PdfReport.tsx",
+    "src/hooks/useExportPdf.ts",
+    "src/types/html2pdf.d.ts"
   ],
   "sessions": [
     {
@@ -13,13 +18,19 @@
       "transcript": "/dd/bf53f9d869/0/full.jsonl",
       "content_hash": "/dd/bf53f9d869/0/content_hash.txt",
       "prompt": ""
+    },
+    {
+      "metadata": "/dd/bf53f9d869/1/metadata.json",
+      "transcript": "/dd/bf53f9d869/1/full.jsonl",
+      "content_hash": "/dd/bf53f9d869/1/content_hash.txt",
+      "prompt": "/dd/bf53f9d869/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 13,
-    "cache_creation_tokens": 16132,
-    "cache_read_tokens": 348796,
-    "output_tokens": 3318,
-    "api_call_count": 7
+    "input_tokens": 42,
+    "cache_creation_tokens": 63244,
+    "cache_read_tokens": 1169226,
+    "output_tokens": 21604,
+    "api_call_count": 30
   }
 }
