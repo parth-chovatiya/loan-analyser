@@ -27,18 +27,18 @@ export function PaymentBreakupChart({ summary }: Props) {
     outerRadius,
     index,
   }: {
-    cx: number;
-    cy: number;
-    midAngle: number;
-    innerRadius: number;
-    outerRadius: number;
-    index: number;
+    cx?: number;
+    cy?: number;
+    midAngle?: number;
+    innerRadius?: number;
+    outerRadius?: number;
+    index?: number;
   }) => {
     const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-    const pct = ((data[index].value / total) * 100).toFixed(1);
+    const radius = (innerRadius ?? 0) + ((outerRadius ?? 0) - (innerRadius ?? 0)) * 0.5;
+    const x = (cx ?? 0) + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
+    const y = (cy ?? 0) + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
+    const pct = ((data[index ?? 0].value / total) * 100).toFixed(1);
 
     return (
       <text
@@ -75,7 +75,7 @@ export function PaymentBreakupChart({ summary }: Props) {
               <Cell key={index} fill={COLORS[index]} />
             ))}
           </Pie>
-          <Tooltip formatter={(value: number) => formatCurrency(value)} />
+          <Tooltip formatter={(value) => formatCurrency(Number(value))} />
         </PieChart>
       </ResponsiveContainer>
       <div className="mt-2 flex justify-center gap-6 text-sm">

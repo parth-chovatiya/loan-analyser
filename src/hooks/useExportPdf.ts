@@ -26,7 +26,8 @@ export function useExportPdf() {
         const date = new Date().toISOString().split('T')[0];
         const name = filenameRef.current ?? `loan-report-${date}.pdf`;
 
-        await html2pdf()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        await (html2pdf() as any)
           .set({
             margin: 10,
             filename: name,

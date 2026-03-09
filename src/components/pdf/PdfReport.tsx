@@ -207,7 +207,7 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" label={{ value: 'Month', position: 'insideBottom', offset: -5 }} tick={{ fontSize: 10 }} />
           <YAxis tickFormatter={(v) => formatCurrencyShort(v)} width={80} tick={{ fontSize: 10 }} />
-          <Tooltip formatter={(value: number) => formatCurrency(value)} />
+          <Tooltip formatter={(value) => formatCurrency(Number(value))} />
           <Legend wrapperStyle={{ fontSize: 10 }} />
           <Line type="monotone" dataKey="withoutPP" name="Original Schedule" stroke="#94a3b8" strokeWidth={2} dot={false} />
           <Line type="monotone" dataKey="withPP" name="With Adjustments" stroke="#2563eb" strokeWidth={2} dot={false} />
@@ -225,14 +225,14 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
               cy={130}
               outerRadius={110}
               dataKey="value"
-              label={({ cx, cy, midAngle, innerRadius, outerRadius, index }: { cx: number; cy: number; midAngle: number; innerRadius: number; outerRadius: number; index: number }) => {
+              label={({ cx, cy, midAngle, innerRadius, outerRadius, index }: { cx?: number; cy?: number; midAngle?: number; innerRadius?: number; outerRadius?: number; index?: number }) => {
                 const RADIAN = Math.PI / 180;
-                const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-                const x = cx + radius * Math.cos(-midAngle * RADIAN);
-                const y = cy + radius * Math.sin(-midAngle * RADIAN);
+                const radius = (innerRadius ?? 0) + ((outerRadius ?? 0) - (innerRadius ?? 0)) * 0.5;
+                const x = (cx ?? 0) + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
+                const y = (cy ?? 0) + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
                 return (
                   <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontWeight="bold" fontSize={13}>
-                    {((pieData[index].value / pieTotal) * 100).toFixed(1)}%
+                    {((pieData[index ?? 0].value / pieTotal) * 100).toFixed(1)}%
                   </text>
                 );
               }}
@@ -240,7 +240,7 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
             >
               {pieData.map((_, i) => <Cell key={i} fill={PIE_COLORS[i]} />)}
             </Pie>
-            <Tooltip formatter={(value: number) => formatCurrency(value)} />
+            <Tooltip formatter={(value) => formatCurrency(Number(value))} />
           </PieChart>
           <div>
             <div style={{ marginBottom: 6 }}>
@@ -262,7 +262,7 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" tick={{ fontSize: 10 }} />
           <YAxis tickFormatter={(v) => formatCurrencyShort(v)} width={80} tick={{ fontSize: 10 }} />
-          <Tooltip formatter={(value: number) => formatCurrency(value)} labelFormatter={(l) => `Year ${l}`} />
+          <Tooltip formatter={(value) => formatCurrency(Number(value))} labelFormatter={(l) => `Year ${l}`} />
           <Legend wrapperStyle={{ fontSize: 10 }} />
           <Bar dataKey="principal" name="Principal + Prepayment" fill="#22c55e" />
           <Bar dataKey="interest" name="Interest" fill="#ef4444" />

@@ -44,7 +44,7 @@ export function ComparisonChart({ summary, simulatedResult }: Props) {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis tickFormatter={(v) => formatCurrency(v)} width={100} />
-          <Tooltip formatter={(value: number) => formatCurrency(value)} />
+          <Tooltip formatter={(value) => formatCurrency(Number(value))} />
           <Legend />
           <Bar dataKey="Original Schedule" fill="#94a3b8" />
           <Bar dataKey="Actual (with adjustments)" fill="#2563eb" />

@@ -7,7 +7,7 @@ export function useLoanData() {
   const [prePayments, setPrePayments] = useState<PrePayment[]>([]);
   const [rateChanges, setRateChanges] = useState<RateChange[]>([]);
   const initialized = useRef(false);
-  const saveTimer = useRef<ReturnType<typeof setTimeout>>();
+  const saveTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   // Load from localStorage on mount
   useEffect(() => {

@@ -42,8 +42,8 @@ export function PrincipalInterestChart({ schedule, isSimulated }: Props) {
           <XAxis dataKey="month" />
           <YAxis tickFormatter={(v) => formatCurrency(v)} width={100} />
           <Tooltip
-            formatter={(value: number) => formatCurrency(value)}
-            labelFormatter={(_: string, payload: Array<{ payload?: { date?: string } }>) => payload?.[0]?.payload?.date || ''}
+            formatter={(value) => formatCurrency(Number(value))}
+            labelFormatter={(_: unknown, payload: readonly { payload?: { date?: string } }[]) => payload?.[0]?.payload?.date || ''}
           />
           <Legend />
           <Bar

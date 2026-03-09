@@ -70,8 +70,8 @@ export function BalanceChart({ summary, simulatedResult }: Props) {
             width={100}
           />
           <Tooltip
-            formatter={(value: number) => formatCurrency(value)}
-            labelFormatter={(_: string, payload: Array<{ payload?: { label?: string } }>) => payload?.[0]?.payload?.label || ''}
+            formatter={(value) => formatCurrency(Number(value))}
+            labelFormatter={(_: unknown, payload: readonly { payload?: { label?: string } }[]) => payload?.[0]?.payload?.label || ''}
           />
           <Legend />
           {currentMonthIndex !== null && (

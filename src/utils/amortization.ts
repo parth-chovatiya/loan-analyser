@@ -1,4 +1,4 @@
-import { addMonths, format, parseISO, lastDayOfMonth, min } from 'date-fns';
+import { addMonths, format, parseISO, lastDayOfMonth } from 'date-fns';
 import type {
   LoanInput,
   PrePayment,

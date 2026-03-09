@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useLoanData } from './hooks/useLoanData';
 import { useAmortization } from './hooks/useAmortization';
 import { useExportPdf } from './hooks/useExportPdf';
+import { useRecommendations } from './hooks/useRecommendations';
 import type { PrePayment, AmortizationResult } from './types/loan';
 import { calculateAmortization } from './utils/amortization';
 import { LoanForm } from './components/LoanForm';
@@ -10,6 +11,7 @@ import { RateChangeList } from './components/RateChangeList';
 import { SummaryCards } from './components/SummaryCards';
 import { AmortizationTable } from './components/AmortizationTable';
 import { WhatIfSimulator } from './components/WhatIfSimulator';
+import { RecommendationPanel } from './components/RecommendationPanel';
 import { PdfReport } from './components/pdf/PdfReport';
 import { BalanceChart } from './components/charts/BalanceChart';
 import { PrincipalInterestChart } from './components/charts/PrincipalInterestChart';
@@ -26,6 +28,7 @@ function App() {
   } = useLoanData();
   const { summary, error } = useAmortization(loan, prePayments, rateChanges);
   const { reportRef, isGenerating, exportPdf } = useExportPdf();
+  const { data: recommendations, loading: recLoading, error: recError, fetchRecommendations } = useRecommendations(loan, prePayments, rateChanges);
 
   // Simulator state (not persisted)
   const [plannedPPs, setPlannedPPs] = useState<PrePayment[]>([]);
@@ -108,6 +111,13 @@ function App() {
               onRemove={(id) => setPlannedPPs((prev) => prev.filter((p) => p.id !== id))}
               currentResult={summary.withPrePayments}
               simulatedResult={simulatedResult}
+            />
+
+            <RecommendationPanel
+              data={recommendations}
+              loading={recLoading}
+              error={recError}
+              onFetch={fetchRecommendations}
             />
 
             <SummaryCards summary={summary} loan={loan} />

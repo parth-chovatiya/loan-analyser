@@ -47,7 +47,7 @@ export function YearlySummaryChart({ schedule, isSimulated }: Props) {
           <XAxis dataKey="year" />
           <YAxis tickFormatter={(v) => formatCurrency(v)} width={100} />
           <Tooltip
-            formatter={(value: number) => formatCurrency(value)}
+            formatter={(value) => formatCurrency(Number(value))}
             labelFormatter={(label) => `Year ${label}`}
           />
           <Legend />

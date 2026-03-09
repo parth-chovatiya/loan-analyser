@@ -93,10 +93,10 @@ export function CumulativeInterestChart({ summary, simulatedResult }: Props) {
           />
           <YAxis tickFormatter={(v) => formatCurrency(v)} width={100} />
           <Tooltip
-            formatter={(value: number) => formatCurrency(value)}
+            formatter={(value) => formatCurrency(Number(value))}
             labelFormatter={(
-              _: string,
-              payload: Array<{ payload?: { label?: string } }>,
+              _: unknown,
+              payload: readonly { payload?: { label?: string } }[],
             ) => payload?.[0]?.payload?.label || ""}
           />
           <Legend />
