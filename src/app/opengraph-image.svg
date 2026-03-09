@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <rect width="1200" height="630" fill="url(#ogbg)"/>
+  <defs>
+    <linearGradient id="ogbg" x1="0" y1="0" x2="1200" y2="630">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon -->
+  <rect x="80" y="215" width="80" height="80" rx="18" fill="url(#iconbg)"/>
+  <defs>
+    <linearGradient id="iconbg" x1="80" y1="215" x2="160" y2="295">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <text x="120" y="270" text-anchor="middle" font-family="system-ui, sans-serif" font-size="44" font-weight="700" fill="white">&#8377;</text>
+  <!-- Title -->
+  <text x="190" y="248" font-family="system-ui, sans-serif" font-size="48" font-weight="700" fill="white">Loan Analyser</text>
+  <text x="190" y="290" font-family="system-ui, sans-serif" font-size="22" fill="#94a3b8">Smart EMI Calculator &amp; Pre-Payment Planner</text>
+  <!-- Feature pills -->
+  <rect x="80" y="360" width="220" height="44" rx="22" fill="#1e3a5f"/>
+  <text x="190" y="388" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#60a5fa">EMI Breakdown</text>
+  <rect x="320" y="360" width="260" height="44" rx="22" fill="#1a3a2a"/>
+  <text x="450" y="388" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#34d399">Pre-Payment Savings</text>
+  <rect x="600" y="360" width="240" height="44" rx="22" fill="#2d1f54"/>
+  <text x="720" y="388" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#a78bfa">What-If Simulator</text>
+  <rect x="860" y="360" width="260" height="44" rx="22" fill="#3b2a1a"/>
+  <text x="990" y="388" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" fill="#fbbf24">Smart Strategies</text>
+  <!-- URL -->
+  <text x="600" y="560" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#475569">Free Online Loan Analysis Tool</text>
+</svg>

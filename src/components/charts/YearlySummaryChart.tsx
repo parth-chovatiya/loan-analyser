@@ -16,7 +16,7 @@ interface Props {
   isSimulated?: boolean;
 }
 
-export function YearlySummaryChart({ schedule, isSimulated }: Props) {
+export const YearlySummaryChart = ({ schedule, isSimulated }: Props) => {
   const yearMap = new Map<string, { interest: number; principal: number }>();
 
   for (const row of schedule) {
@@ -57,4 +57,4 @@ export function YearlySummaryChart({ schedule, isSimulated }: Props) {
       </ResponsiveContainer>
     </div>
   );
-}
+};

@@ -8,7 +8,7 @@ interface Props {
 
 const COLORS = ['#22c55e', '#ef4444'];
 
-export function PaymentBreakupChart({ summary }: Props) {
+export const PaymentBreakupChart = ({ summary }: Props) => {
   const { withPrePayments: wp } = summary;
   const principalPaid = wp.totalAmountPaid - wp.totalInterest;
 
@@ -88,4 +88,4 @@ export function PaymentBreakupChart({ summary }: Props) {
       </div>
     </div>
   );
-}
+};

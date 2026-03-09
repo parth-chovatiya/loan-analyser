@@ -36,7 +36,7 @@ const priorityConfig: Record<Recommendation['priority'], { label: string; class:
   low: { label: 'Low', class: 'bg-slate-100 text-slate-600 ring-1 ring-slate-600/10' },
 };
 
-export function RecommendationPanel({ data, loading, error, onFetch }: Props) {
+export const RecommendationPanel = ({ data, loading, error, onFetch }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -44,7 +44,7 @@ export function RecommendationPanel({ data, loading, error, onFetch }: Props) {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-slate-50/50"
+        className="cursor-pointer flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-slate-50/50"
       >
         <div className="flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-md shadow-indigo-500/20">
@@ -102,7 +102,7 @@ export function RecommendationPanel({ data, loading, error, onFetch }: Props) {
               </p>
               <button
                 onClick={onFetch}
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-600/20 transition-all hover:shadow-lg hover:brightness-110 active:scale-[0.98]"
+                className="cursor-pointer inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-indigo-600/20 transition-all hover:shadow-lg hover:brightness-110 active:scale-[0.98]"
               >
                 Get Recommendations
               </button>
@@ -158,7 +158,7 @@ export function RecommendationPanel({ data, loading, error, onFetch }: Props) {
                 <button
                   onClick={onFetch}
                   disabled={loading}
-                  className="inline-flex items-center gap-1.5 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
+                  className="cursor-pointer inline-flex items-center gap-1.5 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
                 >
                   <svg
                     className="h-3.5 w-3.5"
@@ -245,4 +245,4 @@ export function RecommendationPanel({ data, loading, error, onFetch }: Props) {
       )}
     </div>
   );
-}
+};

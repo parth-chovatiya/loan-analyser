@@ -33,6 +33,11 @@ export const useLoanData = () => {
     [],
   );
 
+  const updatePrePayment = useCallback(
+    (pp: PrePayment) => setPrePayments((prev) => prev.map((p) => (p.id === pp.id ? pp : p))),
+    [],
+  );
+
   const removePrePayment = useCallback(
     (id: string) => setPrePayments((prev) => prev.filter((pp) => pp.id !== id)),
     [],
@@ -40,6 +45,11 @@ export const useLoanData = () => {
 
   const addRateChange = useCallback(
     (rc: RateChange) => setRateChanges((prev) => [...prev, rc]),
+    [],
+  );
+
+  const updateRateChange = useCallback(
+    (rc: RateChange) => setRateChanges((prev) => prev.map((r) => (r.id === rc.id ? rc : r))),
     [],
   );
 
@@ -53,9 +63,11 @@ export const useLoanData = () => {
     setLoan,
     prePayments,
     addPrePayment,
+    updatePrePayment,
     removePrePayment,
     rateChanges,
     addRateChange,
+    updateRateChange,
     removeRateChange,
   };
 };

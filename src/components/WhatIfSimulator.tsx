@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { PrePayment, AmortizationResult } from '../types/loan';
 import { formatCurrency, formatDate, formatDateFull } from '../utils/formatters';
+import { InfoTooltip } from './InfoTooltip';
 
 interface Props {
   plannedPPs: PrePayment[];
@@ -10,13 +11,13 @@ interface Props {
   simulatedResult: AmortizationResult | null;
 }
 
-export function WhatIfSimulator({
+export const WhatIfSimulator = ({
   plannedPPs,
   onAdd,
   onRemove,
   currentResult,
   simulatedResult,
-}: Props) {
+}: Props) => {
   const [date, setDate] = useState('');
   const [amount, setAmount] = useState('');
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +53,7 @@ export function WhatIfSimulator({
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-slate-50/50"
+        className="cursor-pointer flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-slate-50/50"
       >
         <div className="flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 shadow-md shadow-amber-500/20">
@@ -130,7 +131,7 @@ export function WhatIfSimulator({
             </div>
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-amber-600 hover:shadow-md active:scale-[0.98]"
+              className="cursor-pointer inline-flex items-center gap-1.5 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-amber-600 hover:shadow-md active:scale-[0.98]"
             >
               <svg
                 className="h-4 w-4"
@@ -177,7 +178,7 @@ export function WhatIfSimulator({
                   </div>
                   <button
                     onClick={() => onRemove(pp.id)}
-                    className="rounded-lg p-1.5 text-slate-400 opacity-0 transition-all hover:bg-red-50 hover:text-red-500 group-hover:opacity-100"
+                    className="cursor-pointer rounded-lg p-1.5 text-slate-400 opacity-0 transition-all hover:bg-red-50 hover:text-red-500 group-hover:opacity-100"
                   >
                     <svg
                       className="h-4 w-4"
@@ -202,29 +203,37 @@ export function WhatIfSimulator({
                   value: formatCurrency(impact.interestSaved),
                   sub: `investing ${formatCurrency(impact.totalPlanned)}`,
                   color: 'text-emerald-600 bg-emerald-50 border-emerald-100',
+                  tooltip: 'The interest you would save if you make these planned pre-payments.',
                 },
                 {
                   label: 'Months Reduced',
                   value: `${impact.monthsSaved} months`,
                   sub: `${currentResult.totalMonths} to ${simulatedResult!.totalMonths}`,
                   color: 'text-blue-600 bg-blue-50 border-blue-100',
+                  tooltip:
+                    'How many fewer months of EMI you would need to pay with these pre-payments.',
                 },
                 {
                   label: 'New Closure',
                   value: formatDate(impact.newClosureDate),
                   sub: `was ${formatDate(currentResult.closureDate)}`,
                   color: 'text-violet-600 bg-violet-50 border-violet-100',
+                  tooltip:
+                    'Your estimated new loan end date if you go ahead with these pre-payments.',
                 },
                 {
                   label: 'ROI',
                   value: `${((impact.interestSaved / impact.totalPlanned) * 100).toFixed(1)}%`,
                   sub: 'per rupee invested',
                   color: 'text-amber-600 bg-amber-50 border-amber-100',
+                  tooltip:
+                    'Return on investment — how much interest you save for every rupee you pre-pay. Higher is better.',
                 },
               ].map((card) => (
                 <div key={card.label} className={`rounded-xl border p-4 ${card.color}`}>
-                  <p className="text-[10px] font-bold uppercase tracking-widest opacity-60">
+                  <p className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest opacity-60">
                     {card.label}
+                    <InfoTooltip text={card.tooltip} />
                   </p>
                   <p className="mt-1 text-xl font-bold">{card.value}</p>
                   <p className="mt-0.5 text-xs opacity-60">{card.sub}</p>
@@ -242,4 +251,4 @@ export function WhatIfSimulator({
       )}
     </div>
   );
-}
+};

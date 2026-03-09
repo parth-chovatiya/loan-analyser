@@ -20,15 +20,17 @@ import { CumulativeInterestChart } from './components/charts/CumulativeInterestC
 import { PaymentBreakupChart } from './components/charts/PaymentBreakupChart';
 import { YearlySummaryChart } from './components/charts/YearlySummaryChart';
 
-function App() {
+const App = () => {
   const {
     loan,
     setLoan,
     prePayments,
     addPrePayment,
+    updatePrePayment,
     removePrePayment,
     rateChanges,
     addRateChange,
+    updateRateChange,
     removeRateChange,
   } = useLoanData();
   const { summary, error } = useAmortization(loan, prePayments, rateChanges);
@@ -80,12 +82,12 @@ function App() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3" style={{ display: 'none' }}>
               {summary && loan && (
                 <button
                   onClick={() => exportPdf()}
                   disabled={isGenerating}
-                  className="group inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-slate-800 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="cursor-pointer group inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-slate-800 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isGenerating ? (
                     <>
@@ -160,7 +162,7 @@ function App() {
             <div className="flex border-b border-slate-200">
               <button
                 onClick={() => setActiveTab('prepayments')}
-                className={`flex-1 px-6 py-3.5 text-sm font-medium transition-colors relative ${
+                className={`cursor-pointer flex-1 px-6 py-3.5 text-sm font-medium transition-colors relative ${
                   activeTab === 'prepayments'
                     ? 'text-blue-600 bg-blue-50/50'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
@@ -178,7 +180,7 @@ function App() {
               </button>
               <button
                 onClick={() => setActiveTab('rates')}
-                className={`flex-1 px-6 py-3.5 text-sm font-medium transition-colors relative ${
+                className={`cursor-pointer flex-1 px-6 py-3.5 text-sm font-medium transition-colors relative ${
                   activeTab === 'rates'
                     ? 'text-indigo-600 bg-indigo-50/50'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
@@ -200,12 +202,14 @@ function App() {
                 <PrePaymentList
                   prePayments={prePayments}
                   onAdd={addPrePayment}
+                  onUpdate={updatePrePayment}
                   onRemove={removePrePayment}
                 />
               ) : (
                 <RateChangeList
                   rateChanges={rateChanges}
                   onAdd={addRateChange}
+                  onUpdate={updateRateChange}
                   onRemove={removeRateChange}
                 />
               )}
@@ -262,7 +266,7 @@ function App() {
                 </div>
                 <button
                   onClick={() => setPlannedPPs([])}
-                  className="shrink-0 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-50"
+                  className="cursor-pointer shrink-0 rounded-lg border border-amber-300 bg-white px-3 py-1.5 text-xs font-medium text-amber-700 transition-colors hover:bg-amber-50"
                 >
                   Clear
                 </button>
@@ -318,6 +322,6 @@ function App() {
       )}
     </div>
   );
-}
+};
 
 export default App;

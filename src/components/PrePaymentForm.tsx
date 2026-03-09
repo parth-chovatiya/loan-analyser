@@ -5,7 +5,7 @@ interface Props {
   onAdd: (pp: PrePayment) => void;
 }
 
-export function PrePaymentForm({ onAdd }: Props) {
+export const PrePaymentForm = ({ onAdd }: Props) => {
   const [date, setDate] = useState('');
   const [amount, setAmount] = useState('');
 
@@ -55,7 +55,7 @@ export function PrePaymentForm({ onAdd }: Props) {
       </div>
       <button
         type="submit"
-        className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md active:scale-[0.98]"
+        className="cursor-pointer inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md active:scale-[0.98]"
       >
         <svg
           className="h-4 w-4"
@@ -70,4 +70,4 @@ export function PrePaymentForm({ onAdd }: Props) {
       </button>
     </form>
   );
-}
+};

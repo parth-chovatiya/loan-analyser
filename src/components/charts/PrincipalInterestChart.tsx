@@ -16,7 +16,7 @@ interface Props {
   isSimulated?: boolean;
 }
 
-export function PrincipalInterestChart({ schedule, isSimulated }: Props) {
+export const PrincipalInterestChart = ({ schedule, isSimulated }: Props) => {
   // For large schedules, sample every N months to keep chart readable
   const step = schedule.length > 60 ? Math.ceil(schedule.length / 60) : 1;
   const data = schedule
@@ -54,4 +54,4 @@ export function PrincipalInterestChart({ schedule, isSimulated }: Props) {
       </ResponsiveContainer>
     </div>
   );
-}
+};

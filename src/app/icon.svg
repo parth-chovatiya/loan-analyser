@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <!-- Rupee symbol stylized -->
+  <text x="32" y="46" text-anchor="middle" font-family="system-ui, sans-serif" font-size="36" font-weight="700" fill="white">&#8377;</text>
+  <!-- Small upward trend arrow -->
+  <path d="M44 16 L50 10 L50 16" stroke="#34d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M50 10 L44 16 L38 13" stroke="#34d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

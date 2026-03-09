@@ -6,7 +6,7 @@ interface Props {
   onSubmit: (loan: LoanInput) => void;
 }
 
-export function LoanForm({ loan, onSubmit }: Props) {
+export const LoanForm = ({ loan, onSubmit }: Props) => {
   const [principal, setPrincipal] = useState('');
   const [rate, setRate] = useState('');
   const [emi, setEmi] = useState('');
@@ -144,7 +144,7 @@ export function LoanForm({ loan, onSubmit }: Props) {
         <div className="flex items-end">
           <button
             type="submit"
-            className="w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all hover:shadow-lg hover:shadow-blue-600/30 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-[0.98]"
+            className="cursor-pointer w-full rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-blue-600/20 transition-all hover:shadow-lg hover:shadow-blue-600/30 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 active:scale-[0.98]"
           >
             {loan ? 'Update Analysis' : 'Analyse Loan'}
           </button>
@@ -152,4 +152,4 @@ export function LoanForm({ loan, onSubmit }: Props) {
       </div>
     </form>
   );
-}
+};

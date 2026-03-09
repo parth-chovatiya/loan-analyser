@@ -10,16 +10,16 @@ interface Props {
   plannedPPMonths?: Set<string>;
 }
 
-function getCurrentMonthKey(): string {
+const getCurrentMonthKey = (): string => {
   return format(new Date(), 'yyyy-MM');
-}
+};
 
-export function AmortizationTable({
+export const AmortizationTable = ({
   schedule,
   isSimulated,
   actualScheduleLength,
   plannedPPMonths,
-}: Props) {
+}: Props) => {
   const currentMonthKey = getCurrentMonthKey();
   const currentRowRef = useRef<HTMLTableRowElement>(null);
 
@@ -190,4 +190,4 @@ export function AmortizationTable({
       </div>
     </div>
   );
-}
+};

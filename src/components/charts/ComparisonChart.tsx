@@ -16,7 +16,7 @@ interface Props {
   simulatedResult?: AmortizationResult | null;
 }
 
-export function ComparisonChart({ summary, simulatedResult }: Props) {
+export const ComparisonChart = ({ summary, simulatedResult }: Props) => {
   const { withPrePayments: wp, withoutPrePayments: wop } = summary;
 
   const data = [
@@ -51,4 +51,4 @@ export function ComparisonChart({ summary, simulatedResult }: Props) {
       </ResponsiveContainer>
     </div>
   );
-}
+};

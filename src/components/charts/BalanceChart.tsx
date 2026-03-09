@@ -18,7 +18,7 @@ interface Props {
   simulatedResult?: AmortizationResult | null;
 }
 
-export function BalanceChart({ summary, simulatedResult }: Props) {
+export const BalanceChart = ({ summary, simulatedResult }: Props) => {
   const { withPrePayments, withoutPrePayments } = summary;
 
   const currentMonthKey = format(new Date(), 'yyyy-MM');
@@ -108,4 +108,4 @@ export function BalanceChart({ summary, simulatedResult }: Props) {
       </ResponsiveContainer>
     </div>
   );
-}
+};

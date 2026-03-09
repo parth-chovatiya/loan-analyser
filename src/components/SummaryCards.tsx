@@ -1,12 +1,13 @@
 import type { LoanInput, LoanSummary } from '../types/loan';
 import { formatCurrency, formatDate } from '../utils/formatters';
+import { InfoTooltip } from './InfoTooltip';
 
 interface Props {
   summary: LoanSummary;
   loan: LoanInput;
 }
 
-export function SummaryCards({ summary, loan }: Props) {
+export const SummaryCards = ({ summary, loan }: Props) => {
   const { withPrePayments: wp, withoutPrePayments: wop } = summary;
 
   const now = new Date();
@@ -30,6 +31,8 @@ export function SummaryCards({ summary, loan }: Props) {
       label: 'Total Interest',
       value: formatCurrency(wp.totalInterest),
       sub: `was ${formatCurrency(wop.totalInterest)}`,
+      tooltip:
+        'The total interest you will pay over the entire loan tenure after all pre-payments.',
       icon: (
         <svg
           className="h-5 w-5"
@@ -52,6 +55,8 @@ export function SummaryCards({ summary, loan }: Props) {
       label: 'Interest Saved',
       value: formatCurrency(summary.interestSaved),
       sub: `${((summary.interestSaved / wop.totalInterest) * 100).toFixed(1)}% reduction`,
+      tooltip:
+        'How much interest you are saving compared to the original schedule, thanks to your pre-payments.',
       icon: (
         <svg
           className="h-5 w-5"
@@ -74,6 +79,8 @@ export function SummaryCards({ summary, loan }: Props) {
       label: 'Closure Date',
       value: formatDate(wp.closureDate),
       sub: `was ${formatDate(wop.closureDate)}`,
+      tooltip:
+        'The estimated date when your loan will be fully paid off with current pre-payments.',
       icon: (
         <svg
           className="h-5 w-5"
@@ -96,6 +103,8 @@ export function SummaryCards({ summary, loan }: Props) {
       label: 'Months Saved',
       value: `${summary.monthsSaved}`,
       sub: `${wp.totalMonths} vs ${wop.totalMonths} months`,
+      tooltip:
+        'The number of EMI months you have cut from your loan tenure by making pre-payments.',
       icon: (
         <svg
           className="h-5 w-5"
@@ -118,6 +127,8 @@ export function SummaryCards({ summary, loan }: Props) {
       label: 'Total Paid',
       value: formatCurrency(wp.totalAmountPaid),
       sub: `was ${formatCurrency(wop.totalAmountPaid)}`,
+      tooltip:
+        'The total amount you will pay to the bank including principal, interest, and all pre-payments.',
       icon: (
         <svg
           className="h-5 w-5"
@@ -140,6 +151,8 @@ export function SummaryCards({ summary, loan }: Props) {
       label: 'Effective Cost',
       value: `${(wp.totalAmountPaid / loan.principal).toFixed(2)}x`,
       sub: `of borrowed amount`,
+      tooltip:
+        'How many times the borrowed amount you end up paying. For example, 1.50x means you pay 50% extra as interest.',
       icon: (
         <svg
           className="h-5 w-5"
@@ -162,6 +175,8 @@ export function SummaryCards({ summary, loan }: Props) {
       label: 'Interest Ratio',
       value: `${((wp.totalInterest / loan.principal) * 100).toFixed(1)}%`,
       sub: `was ${((wop.totalInterest / loan.principal) * 100).toFixed(1)}%`,
+      tooltip:
+        'Interest as a percentage of your borrowed amount. Lower is better — it shows how efficiently you are repaying.',
       icon: (
         <svg
           className="h-5 w-5"
@@ -189,6 +204,7 @@ export function SummaryCards({ summary, loan }: Props) {
       label: 'Progress',
       value: `${progressPct}%`,
       sub: `${monthsCompleted} of ${wp.totalMonths} months`,
+      tooltip: 'How much of your loan principal you have repaid so far based on the current date.',
       icon: (
         <svg
           className="h-5 w-5"
@@ -218,8 +234,9 @@ export function SummaryCards({ summary, loan }: Props) {
           className={`group rounded-2xl border p-5 transition-all hover:shadow-md hover:-translate-y-0.5 ${card.accent}`}
         >
           <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-semibold uppercase tracking-wider opacity-70">
+            <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider opacity-70">
               {card.label}
+              <InfoTooltip text={card.tooltip} />
             </span>
             <div
               className={`flex h-8 w-8 items-center justify-center rounded-lg ${card.iconBg} transition-transform group-hover:scale-110`}
@@ -241,4 +258,4 @@ export function SummaryCards({ summary, loan }: Props) {
       ))}
     </div>
   );
-}
+};
