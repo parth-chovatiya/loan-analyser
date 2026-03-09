@@ -26,7 +26,7 @@ export function BalanceChart({ summary, simulatedResult }: Props) {
   const maxLen = Math.max(
     withPrePayments.schedule.length,
     withoutPrePayments.schedule.length,
-    simulatedResult?.schedule.length ?? 0
+    simulatedResult?.schedule.length ?? 0,
   );
 
   let currentMonthIndex: number | null = null;
@@ -55,23 +55,17 @@ export function BalanceChart({ summary, simulatedResult }: Props) {
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900">
-        Outstanding Balance Over Time
-      </h3>
+      <h3 className="mb-4 text-lg font-semibold text-gray-900">Outstanding Balance Over Time</h3>
       <ResponsiveContainer width="100%" height={350}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="month"
-            label={{ value: 'Month', position: 'insideBottom', offset: -5 }}
-          />
-          <YAxis
-            tickFormatter={(v) => formatCurrency(v)}
-            width={100}
-          />
+          <XAxis dataKey="month" label={{ value: 'Month', position: 'insideBottom', offset: -5 }} />
+          <YAxis tickFormatter={(v) => formatCurrency(v)} width={100} />
           <Tooltip
             formatter={(value) => formatCurrency(Number(value))}
-            labelFormatter={(_: unknown, payload: readonly { payload?: { label?: string } }[]) => payload?.[0]?.payload?.label || ''}
+            labelFormatter={(_: unknown, payload: readonly { payload?: { label?: string } }[]) =>
+              payload?.[0]?.payload?.label || ''
+            }
           />
           <Legend />
           {currentMonthIndex !== null && (

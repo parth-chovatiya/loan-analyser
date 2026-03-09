@@ -30,7 +30,8 @@ export function AmortizationTable({
   }, [schedule]);
 
   // Detect if rates change across the schedule
-  const hasRateChanges = schedule.length > 1 &&
+  const hasRateChanges =
+    schedule.length > 1 &&
     schedule.some((row, i) => i > 0 && row.annualRate !== schedule[i - 1].annualRate);
 
   return (
@@ -45,9 +46,7 @@ export function AmortizationTable({
         <p className="text-sm text-gray-500 mt-1">
           {schedule.length} months
           {isSimulated && actualScheduleLength && actualScheduleLength !== schedule.length && (
-            <span className="text-amber-600">
-              {' '}(was {actualScheduleLength} months)
-            </span>
+            <span className="text-amber-600"> (was {actualScheduleLength} months)</span>
           )}
         </p>
       </div>
@@ -57,9 +56,7 @@ export function AmortizationTable({
             <tr className="border-b border-gray-200 text-gray-600">
               <th className="pb-2 pr-3 font-medium">#</th>
               <th className="pb-2 pr-3 font-medium">Date</th>
-              {hasRateChanges && (
-                <th className="pb-2 pr-3 font-medium text-right">Rate</th>
-              )}
+              {hasRateChanges && <th className="pb-2 pr-3 font-medium text-right">Rate</th>}
               <th className="pb-2 pr-3 font-medium text-right">Opening Bal.</th>
               <th className="pb-2 pr-3 font-medium text-right">Interest</th>
               <th className="pb-2 pr-3 font-medium text-right">Principal</th>
@@ -121,11 +118,11 @@ export function AmortizationTable({
                         row.month
                       )}
                     </td>
-                    <td className="py-2 pr-3 whitespace-nowrap">
-                      {formatDate(row.date)}
-                    </td>
+                    <td className="py-2 pr-3 whitespace-nowrap">{formatDate(row.date)}</td>
                     {hasRateChanges && (
-                      <td className={`py-2 pr-3 text-right tabular-nums ${rateChanged ? 'font-semibold text-indigo-700' : 'text-gray-500'}`}>
+                      <td
+                        className={`py-2 pr-3 text-right tabular-nums ${rateChanged ? 'font-semibold text-indigo-700' : 'text-gray-500'}`}
+                      >
                         {row.annualRate}%
                       </td>
                     )}
@@ -140,7 +137,9 @@ export function AmortizationTable({
                     </td>
                     <td className="py-2 pr-3 text-right tabular-nums">
                       {row.prePayment > 0 ? (
-                        <span className={`font-medium ${isPlannedPP ? 'text-amber-600' : 'text-blue-600'}`}>
+                        <span
+                          className={`font-medium ${isPlannedPP ? 'text-amber-600' : 'text-blue-600'}`}
+                        >
                           {formatCurrency(row.prePayment)}
                         </span>
                       ) : (

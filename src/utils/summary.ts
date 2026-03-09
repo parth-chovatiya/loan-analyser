@@ -13,9 +13,7 @@ export const generateSummary = (
     withPrePayments,
     withoutPrePayments,
     interestSaved:
-      Math.round(
-        (withoutPrePayments.totalInterest - withPrePayments.totalInterest) * 100,
-      ) / 100,
+      Math.round((withoutPrePayments.totalInterest - withPrePayments.totalInterest) * 100) / 100,
     monthsSaved: withoutPrePayments.totalMonths - withPrePayments.totalMonths,
   };
 };

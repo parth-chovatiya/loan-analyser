@@ -13,8 +13,6 @@ export const formatCurrencyShort = (amount: number): string => {
   return formatCurrency(amount);
 };
 
-export const formatDate = (dateStr: string): string =>
-  format(parseISO(dateStr), 'MMM yyyy');
+export const formatDate = (dateStr: string): string => format(parseISO(dateStr), 'MMM yyyy');
 
-export const formatDateFull = (dateStr: string): string =>
-  format(parseISO(dateStr), 'dd MMM yyyy');
+export const formatDateFull = (dateStr: string): string => format(parseISO(dateStr), 'dd MMM yyyy');

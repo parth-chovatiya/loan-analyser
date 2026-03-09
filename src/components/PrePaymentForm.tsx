@@ -24,9 +24,7 @@ export function PrePaymentForm({ onAdd }: Props) {
   return (
     <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-3">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Date
-        </label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
         <input
           type="date"
           className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
@@ -36,9 +34,7 @@ export function PrePaymentForm({ onAdd }: Props) {
         />
       </div>
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Amount (₹)
-        </label>
+        <label className="block text-sm font-medium text-gray-700 mb-1">Amount (₹)</label>
         <input
           type="number"
           className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"

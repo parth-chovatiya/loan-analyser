@@ -31,7 +31,7 @@ export function WhatIfSimulator({
   };
 
   const sortedPlanned = [...plannedPPs].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   );
 
   const defaultMinDate = new Date().toISOString().split('T')[0];
@@ -52,9 +52,7 @@ export function WhatIfSimulator({
         className="flex w-full items-center justify-between"
       >
         <div className="text-left">
-          <h2 className="text-lg font-semibold text-gray-900">
-            What-If Simulator
-          </h2>
+          <h2 className="text-lg font-semibold text-gray-900">What-If Simulator</h2>
           <p className="text-sm text-gray-500">
             Plan future pre-payments and see how they impact your loan, charts &amp; table
           </p>
@@ -65,9 +63,7 @@ export function WhatIfSimulator({
               {plannedPPs.length} planned
             </span>
           )}
-          <span className="text-2xl text-amber-600">
-            {isOpen ? '\u25B2' : '\u25BC'}
-          </span>
+          <span className="text-2xl text-amber-600">{isOpen ? '\u25B2' : '\u25BC'}</span>
         </div>
       </button>
 
@@ -76,9 +72,7 @@ export function WhatIfSimulator({
           {/* Add planned pre-payment form */}
           <form onSubmit={handleAdd} className="flex flex-wrap items-end gap-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Planned Date
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Planned Date</label>
               <input
                 type="date"
                 className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
@@ -89,9 +83,7 @@ export function WhatIfSimulator({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Amount (₹)
-              </label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Amount (₹)</label>
               <input
                 type="number"
                 className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500"
@@ -123,10 +115,7 @@ export function WhatIfSimulator({
                 </thead>
                 <tbody>
                   {sortedPlanned.map((pp) => (
-                    <tr
-                      key={pp.id}
-                      className="border-b border-amber-100 last:border-0"
-                    >
+                    <tr key={pp.id} className="border-b border-amber-100 last:border-0">
                       <td className="py-2 pr-4">{formatDateFull(pp.date)}</td>
                       <td className="py-2 pr-4 font-medium">{formatCurrency(pp.amount)}</td>
                       <td className="py-2">
@@ -191,9 +180,7 @@ export function WhatIfSimulator({
                   <p className="mt-1 text-xl font-bold text-blue-700">
                     {((impact.interestSaved / impact.totalPlanned) * 100).toFixed(1)}%
                   </p>
-                  <p className="mt-1 text-xs text-gray-500">
-                    interest saved per rupee invested
-                  </p>
+                  <p className="mt-1 text-xs text-gray-500">interest saved per rupee invested</p>
                 </div>
               </div>
             </div>

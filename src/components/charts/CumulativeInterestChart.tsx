@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo } from 'react';
 import {
   AreaChart,
   Area,
@@ -8,19 +8,16 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from "recharts";
-import type { LoanSummary, AmortizationResult } from "../../types/loan";
-import { formatCurrency, formatDate } from "../../utils/formatters";
+} from 'recharts';
+import type { LoanSummary, AmortizationResult } from '../../types/loan';
+import { formatCurrency, formatDate } from '../../utils/formatters';
 
 interface Props {
   summary: LoanSummary;
   simulatedResult?: AmortizationResult | null;
 }
 
-function buildCumulativeData(
-  summary: LoanSummary,
-  simulatedResult?: AmortizationResult | null,
-) {
+function buildCumulativeData(summary: LoanSummary, simulatedResult?: AmortizationResult | null) {
   const { withPrePayments, withoutPrePayments } = summary;
 
   const maxLen = Math.max(
@@ -38,7 +35,7 @@ function buildCumulativeData(
       withoutPrePayments.schedule[i]?.date ??
       withPrePayments.schedule[i]?.date ??
       simulatedResult?.schedule[i]?.date ??
-      "";
+      '';
 
     cumOriginal += withoutPrePayments.schedule[i]?.interestComponent ?? 0;
     cumActual += withPrePayments.schedule[i]?.interestComponent ?? 0;
@@ -48,7 +45,7 @@ function buildCumulativeData(
 
     const entry: Record<string, number | string> = {
       month: i + 1,
-      label: dateStr ? formatDate(dateStr) : "",
+      label: dateStr ? formatDate(dateStr) : '',
       original: Math.round(cumOriginal),
       actual: Math.round(cumActual),
     };
@@ -67,9 +64,7 @@ export function CumulativeInterestChart({ summary, simulatedResult }: Props) {
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900">
-        Cumulative Interest Paid
-      </h3>
+      <h3 className="mb-4 text-lg font-semibold text-gray-900">Cumulative Interest Paid</h3>
       <ResponsiveContainer width="100%" height={350}>
         <AreaChart data={data}>
           <defs>
@@ -87,17 +82,13 @@ export function CumulativeInterestChart({ summary, simulatedResult }: Props) {
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="month"
-            label={{ value: "Month", position: "insideBottom", offset: -5 }}
-          />
+          <XAxis dataKey="month" label={{ value: 'Month', position: 'insideBottom', offset: -5 }} />
           <YAxis tickFormatter={(v) => formatCurrency(v)} width={100} />
           <Tooltip
             formatter={(value) => formatCurrency(Number(value))}
-            labelFormatter={(
-              _: unknown,
-              payload: readonly { payload?: { label?: string } }[],
-            ) => payload?.[0]?.payload?.label || ""}
+            labelFormatter={(_: unknown, payload: readonly { payload?: { label?: string } }[]) =>
+              payload?.[0]?.payload?.label || ''
+            }
           />
           <Legend />
           <Area

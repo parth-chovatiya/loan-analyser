@@ -1,16 +1,21 @@
 import { forwardRef } from 'react';
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
-} from 'recharts';
-import {
-  PieChart, Pie, Cell,
-} from 'recharts';
-import {
-  BarChart, Bar,
-} from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar } from 'recharts';
 import { format } from 'date-fns';
-import type { LoanInput, LoanSummary, PrePayment, RateChange, AmortizationResult } from '../../types/loan';
-import { formatCurrency, formatCurrencyShort, formatDate, formatDateFull } from '../../utils/formatters';
+import type {
+  LoanInput,
+  LoanSummary,
+  PrePayment,
+  RateChange,
+  AmortizationResult,
+} from '../../types/loan';
+import {
+  formatCurrency,
+  formatCurrencyShort,
+  formatDate,
+  formatDateFull,
+} from '../../utils/formatters';
 
 interface Props {
   loan: LoanInput;
@@ -72,25 +77,59 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
     if (row.date.substring(0, 7) <= nowKey) monthsCompleted = row.month;
     else break;
   }
-  const principalRepaid = monthsCompleted > 0
-    ? loan.principal - (wp.schedule[monthsCompleted - 1]?.closingBalance ?? 0)
-    : 0;
+  const principalRepaid =
+    monthsCompleted > 0
+      ? loan.principal - (wp.schedule[monthsCompleted - 1]?.closingBalance ?? 0)
+      : 0;
   const progressPct = ((principalRepaid / loan.principal) * 100).toFixed(1);
 
   const metrics = [
-    { label: 'Total Interest', value: formatCurrency(wp.totalInterest), sub: `Original: ${formatCurrency(wop.totalInterest)}` },
-    { label: 'Total Amount Paid', value: formatCurrency(wp.totalAmountPaid), sub: `Original: ${formatCurrency(wop.totalAmountPaid)}` },
-    { label: 'Loan Closure Date', value: formatDate(wp.closureDate), sub: `Original: ${formatDate(wop.closureDate)}` },
-    { label: 'Interest Saved', value: formatCurrency(summary.interestSaved), sub: `${((summary.interestSaved / wop.totalInterest) * 100).toFixed(1)}% reduction` },
-    { label: 'Months Saved', value: `${summary.monthsSaved} months`, sub: `${wp.totalMonths} vs ${wop.totalMonths} months` },
-    { label: 'Interest-to-Principal', value: `${((wp.totalInterest / loan.principal) * 100).toFixed(1)}%`, sub: `Original: ${((wop.totalInterest / loan.principal) * 100).toFixed(1)}%` },
-    { label: 'Effective Cost', value: `${(wp.totalAmountPaid / loan.principal).toFixed(2)}x`, sub: `You pay ${(wp.totalAmountPaid / loan.principal).toFixed(2)}x the borrowed amount` },
-    { label: 'Loan Progress', value: `${progressPct}%`, sub: `${monthsCompleted} of ${wp.totalMonths} months completed` },
+    {
+      label: 'Total Interest',
+      value: formatCurrency(wp.totalInterest),
+      sub: `Original: ${formatCurrency(wop.totalInterest)}`,
+    },
+    {
+      label: 'Total Amount Paid',
+      value: formatCurrency(wp.totalAmountPaid),
+      sub: `Original: ${formatCurrency(wop.totalAmountPaid)}`,
+    },
+    {
+      label: 'Loan Closure Date',
+      value: formatDate(wp.closureDate),
+      sub: `Original: ${formatDate(wop.closureDate)}`,
+    },
+    {
+      label: 'Interest Saved',
+      value: formatCurrency(summary.interestSaved),
+      sub: `${((summary.interestSaved / wop.totalInterest) * 100).toFixed(1)}% reduction`,
+    },
+    {
+      label: 'Months Saved',
+      value: `${summary.monthsSaved} months`,
+      sub: `${wp.totalMonths} vs ${wop.totalMonths} months`,
+    },
+    {
+      label: 'Interest-to-Principal',
+      value: `${((wp.totalInterest / loan.principal) * 100).toFixed(1)}%`,
+      sub: `Original: ${((wop.totalInterest / loan.principal) * 100).toFixed(1)}%`,
+    },
+    {
+      label: 'Effective Cost',
+      value: `${(wp.totalAmountPaid / loan.principal).toFixed(2)}x`,
+      sub: `You pay ${(wp.totalAmountPaid / loan.principal).toFixed(2)}x the borrowed amount`,
+    },
+    {
+      label: 'Loan Progress',
+      value: `${progressPct}%`,
+      sub: `${monthsCompleted} of ${wp.totalMonths} months completed`,
+    },
   ];
 
   // --- Amortization table: detect rate changes ---
   const schedule = activeResult.schedule;
-  const hasRateChanges = schedule.length > 1 &&
+  const hasRateChanges =
+    schedule.length > 1 &&
     schedule.some((row, i) => i > 0 && row.annualRate !== schedule[i - 1].annualRate);
 
   return (
@@ -113,8 +152,19 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
     >
       {/* === SECTION 1: Header === */}
       {isSimulated && (
-        <div style={{ background: '#fef3c7', border: '1px solid #f59e0b', borderRadius: 6, padding: '8px 12px', marginBottom: 16, fontWeight: 600, color: '#92400e' }}>
-          Simulated Scenario — This report reflects planned pre-payments that have not yet been made.
+        <div
+          style={{
+            background: '#fef3c7',
+            border: '1px solid #f59e0b',
+            borderRadius: 6,
+            padding: '8px 12px',
+            marginBottom: 16,
+            fontWeight: 600,
+            color: '#92400e',
+          }}
+        >
+          Simulated Scenario — This report reflects planned pre-payments that have not yet been
+          made.
         </div>
       )}
 
@@ -124,15 +174,26 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       {/* Loan details table */}
       <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 16 }}>
         <tbody>
-          {([
-            ['Principal', formatCurrency(loan.principal)],
-            ['Annual Interest Rate', `${loan.annualRate}%`],
-            ['EMI', formatCurrency(loan.emi)],
-            ['EMI Debit Day', `${loan.emiDebitDay}`],
-            ['Start Date', formatDateFull(loan.startDate)],
-          ] as const).map(([label, value]) => (
+          {(
+            [
+              ['Principal', formatCurrency(loan.principal)],
+              ['Annual Interest Rate', `${loan.annualRate}%`],
+              ['EMI', formatCurrency(loan.emi)],
+              ['EMI Debit Day', `${loan.emiDebitDay}`],
+              ['Start Date', formatDateFull(loan.startDate)],
+            ] as const
+          ).map(([label, value]) => (
             <tr key={label}>
-              <td style={{ padding: '4px 8px', fontWeight: 600, width: '40%', borderBottom: '1px solid #e5e7eb' }}>{label}</td>
+              <td
+                style={{
+                  padding: '4px 8px',
+                  fontWeight: 600,
+                  width: '40%',
+                  borderBottom: '1px solid #e5e7eb',
+                }}
+              >
+                {label}
+              </td>
               <td style={{ padding: '4px 8px', borderBottom: '1px solid #e5e7eb' }}>{value}</td>
             </tr>
           ))}
@@ -154,7 +215,9 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
               {prePayments.map((pp) => (
                 <tr key={pp.id} style={{ borderBottom: '1px solid #e5e7eb' }}>
                   <td style={{ padding: '4px 8px' }}>{formatDateFull(pp.date)}</td>
-                  <td style={{ padding: '4px 8px', textAlign: 'right' }}>{formatCurrency(pp.amount)}</td>
+                  <td style={{ padding: '4px 8px', textAlign: 'right' }}>
+                    {formatCurrency(pp.amount)}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -169,8 +232,12 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
           <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: 16 }}>
             <thead>
               <tr style={{ borderBottom: '2px solid #d1d5db' }}>
-                <th style={{ padding: '4px 8px', textAlign: 'left', fontWeight: 600 }}>Effective Date</th>
-                <th style={{ padding: '4px 8px', textAlign: 'right', fontWeight: 600 }}>New Rate</th>
+                <th style={{ padding: '4px 8px', textAlign: 'left', fontWeight: 600 }}>
+                  Effective Date
+                </th>
+                <th style={{ padding: '4px 8px', textAlign: 'right', fontWeight: 600 }}>
+                  New Rate
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -186,11 +253,41 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       )}
 
       {/* === SECTION 2: Summary Metrics === */}
-      <h2 style={{ fontSize: 16, fontWeight: 700, margin: '20px 0 10px', borderBottom: '2px solid #2563eb', paddingBottom: 4 }}>Summary Metrics</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', gap: 10, marginBottom: 20 }}>
+      <h2
+        style={{
+          fontSize: 16,
+          fontWeight: 700,
+          margin: '20px 0 10px',
+          borderBottom: '2px solid #2563eb',
+          paddingBottom: 4,
+        }}
+      >
+        Summary Metrics
+      </h2>
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+          gap: 10,
+          marginBottom: 20,
+        }}
+      >
         {metrics.map((m) => (
-          <div key={m.label} style={{ border: '1px solid #d1d5db', borderRadius: 6, padding: '8px 10px' }}>
-            <div style={{ fontSize: 10, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{m.label}</div>
+          <div
+            key={m.label}
+            style={{ border: '1px solid #d1d5db', borderRadius: 6, padding: '8px 10px' }}
+          >
+            <div
+              style={{
+                fontSize: 10,
+                fontWeight: 600,
+                color: '#6b7280',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+              }}
+            >
+              {m.label}
+            </div>
             <div style={{ fontSize: 15, fontWeight: 700, marginTop: 2 }}>{m.value}</div>
             <div style={{ fontSize: 10, color: '#9ca3af', marginTop: 2 }}>{m.sub}</div>
           </div>
@@ -198,19 +295,49 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       </div>
 
       {/* === SECTION 3: Charts === */}
-      <h2 style={{ fontSize: 16, fontWeight: 700, margin: '20px 0 10px', borderBottom: '2px solid #2563eb', paddingBottom: 4 }}>Charts</h2>
+      <h2
+        style={{
+          fontSize: 16,
+          fontWeight: 700,
+          margin: '20px 0 10px',
+          borderBottom: '2px solid #2563eb',
+          paddingBottom: 4,
+        }}
+      >
+        Charts
+      </h2>
 
       {/* Balance Over Time */}
       <div style={{ marginBottom: 20 }}>
-        <h3 style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>Outstanding Balance Over Time</h3>
+        <h3 style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
+          Outstanding Balance Over Time
+        </h3>
         <LineChart width={CHART_W} height={CHART_H} data={balanceData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" label={{ value: 'Month', position: 'insideBottom', offset: -5 }} tick={{ fontSize: 10 }} />
+          <XAxis
+            dataKey="month"
+            label={{ value: 'Month', position: 'insideBottom', offset: -5 }}
+            tick={{ fontSize: 10 }}
+          />
           <YAxis tickFormatter={(v) => formatCurrencyShort(v)} width={80} tick={{ fontSize: 10 }} />
           <Tooltip formatter={(value) => formatCurrency(Number(value))} />
           <Legend wrapperStyle={{ fontSize: 10 }} />
-          <Line type="monotone" dataKey="withoutPP" name="Original Schedule" stroke="#94a3b8" strokeWidth={2} dot={false} />
-          <Line type="monotone" dataKey="withPP" name="With Adjustments" stroke="#2563eb" strokeWidth={2} dot={false} />
+          <Line
+            type="monotone"
+            dataKey="withoutPP"
+            name="Original Schedule"
+            stroke="#94a3b8"
+            strokeWidth={2}
+            dot={false}
+          />
+          <Line
+            type="monotone"
+            dataKey="withPP"
+            name="With Adjustments"
+            stroke="#2563eb"
+            strokeWidth={2}
+            dot={false}
+          />
         </LineChart>
       </div>
 
@@ -225,30 +352,74 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
               cy={130}
               outerRadius={110}
               dataKey="value"
-              label={({ cx, cy, midAngle, innerRadius, outerRadius, index }: { cx?: number; cy?: number; midAngle?: number; innerRadius?: number; outerRadius?: number; index?: number }) => {
+              label={({
+                cx,
+                cy,
+                midAngle,
+                innerRadius,
+                outerRadius,
+                index,
+              }: {
+                cx?: number;
+                cy?: number;
+                midAngle?: number;
+                innerRadius?: number;
+                outerRadius?: number;
+                index?: number;
+              }) => {
                 const RADIAN = Math.PI / 180;
                 const radius = (innerRadius ?? 0) + ((outerRadius ?? 0) - (innerRadius ?? 0)) * 0.5;
                 const x = (cx ?? 0) + radius * Math.cos(-(midAngle ?? 0) * RADIAN);
                 const y = (cy ?? 0) + radius * Math.sin(-(midAngle ?? 0) * RADIAN);
                 return (
-                  <text x={x} y={y} fill="white" textAnchor="middle" dominantBaseline="central" fontWeight="bold" fontSize={13}>
+                  <text
+                    x={x}
+                    y={y}
+                    fill="white"
+                    textAnchor="middle"
+                    dominantBaseline="central"
+                    fontWeight="bold"
+                    fontSize={13}
+                  >
                     {((pieData[index ?? 0].value / pieTotal) * 100).toFixed(1)}%
                   </text>
                 );
               }}
               labelLine={false}
             >
-              {pieData.map((_, i) => <Cell key={i} fill={PIE_COLORS[i]} />)}
+              {pieData.map((_, i) => (
+                <Cell key={i} fill={PIE_COLORS[i]} />
+              ))}
             </Pie>
             <Tooltip formatter={(value) => formatCurrency(Number(value))} />
           </PieChart>
           <div>
             <div style={{ marginBottom: 6 }}>
-              <span style={{ display: 'inline-block', width: 12, height: 12, borderRadius: '50%', background: '#22c55e', marginRight: 6, verticalAlign: 'middle' }} />
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: 12,
+                  height: 12,
+                  borderRadius: '50%',
+                  background: '#22c55e',
+                  marginRight: 6,
+                  verticalAlign: 'middle',
+                }}
+              />
               Principal: {formatCurrency(principalPaid)}
             </div>
             <div>
-              <span style={{ display: 'inline-block', width: 12, height: 12, borderRadius: '50%', background: '#ef4444', marginRight: 6, verticalAlign: 'middle' }} />
+              <span
+                style={{
+                  display: 'inline-block',
+                  width: 12,
+                  height: 12,
+                  borderRadius: '50%',
+                  background: '#ef4444',
+                  marginRight: 6,
+                  verticalAlign: 'middle',
+                }}
+              />
               Interest: {formatCurrency(wp.totalInterest)}
             </div>
           </div>
@@ -262,7 +433,10 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="year" tick={{ fontSize: 10 }} />
           <YAxis tickFormatter={(v) => formatCurrencyShort(v)} width={80} tick={{ fontSize: 10 }} />
-          <Tooltip formatter={(value) => formatCurrency(Number(value))} labelFormatter={(l) => `Year ${l}`} />
+          <Tooltip
+            formatter={(value) => formatCurrency(Number(value))}
+            labelFormatter={(l) => `Year ${l}`}
+          />
           <Legend wrapperStyle={{ fontSize: 10 }} />
           <Bar dataKey="principal" name="Principal + Prepayment" fill="#22c55e" />
           <Bar dataKey="interest" name="Interest" fill="#ef4444" />
@@ -270,7 +444,15 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       </div>
 
       {/* === SECTION 4: Amortization Schedule === */}
-      <h2 style={{ fontSize: 16, fontWeight: 700, margin: '20px 0 10px', borderBottom: '2px solid #2563eb', paddingBottom: 4 }}>
+      <h2
+        style={{
+          fontSize: 16,
+          fontWeight: 700,
+          margin: '20px 0 10px',
+          borderBottom: '2px solid #2563eb',
+          paddingBottom: 4,
+        }}
+      >
         Amortization Schedule ({schedule.length} months)
       </h2>
       <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 10 }}>
@@ -278,7 +460,9 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
           <tr style={{ borderBottom: '2px solid #374151', background: '#f9fafb' }}>
             <th style={{ padding: '4px 3px', textAlign: 'left', fontWeight: 600 }}>#</th>
             <th style={{ padding: '4px 3px', textAlign: 'left', fontWeight: 600 }}>Date</th>
-            {hasRateChanges && <th style={{ padding: '4px 3px', textAlign: 'right', fontWeight: 600 }}>Rate</th>}
+            {hasRateChanges && (
+              <th style={{ padding: '4px 3px', textAlign: 'right', fontWeight: 600 }}>Rate</th>
+            )}
             <th style={{ padding: '4px 3px', textAlign: 'right', fontWeight: 600 }}>Opening</th>
             <th style={{ padding: '4px 3px', textAlign: 'right', fontWeight: 600 }}>Interest</th>
             <th style={{ padding: '4px 3px', textAlign: 'right', fontWeight: 600 }}>Principal</th>
@@ -289,10 +473,13 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
         </thead>
         <tbody>
           {schedule.map((row) => {
-            const rateChanged = hasRateChanges && row.month > 1 &&
+            const rateChanged =
+              hasRateChanges &&
+              row.month > 1 &&
               row.annualRate !== schedule[row.month - 2]?.annualRate;
             let bg = '#fff';
-            if (row.prePayment > 0) bg = '#f0fdf4'; // green-50
+            if (row.prePayment > 0)
+              bg = '#f0fdf4'; // green-50
             else if (rateChanged) bg = '#eef2ff'; // indigo-50
 
             return (
@@ -300,18 +487,41 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
                 <td style={{ padding: '3px' }}>{row.month}</td>
                 <td style={{ padding: '3px', whiteSpace: 'nowrap' }}>{formatDate(row.date)}</td>
                 {hasRateChanges && (
-                  <td style={{ padding: '3px', textAlign: 'right', fontWeight: rateChanged ? 700 : 400, color: rateChanged ? '#4338ca' : undefined }}>
+                  <td
+                    style={{
+                      padding: '3px',
+                      textAlign: 'right',
+                      fontWeight: rateChanged ? 700 : 400,
+                      color: rateChanged ? '#4338ca' : undefined,
+                    }}
+                  >
                     {row.annualRate}%
                   </td>
                 )}
-                <td style={{ padding: '3px', textAlign: 'right' }}>{formatCurrency(row.openingBalance)}</td>
-                <td style={{ padding: '3px', textAlign: 'right', color: '#dc2626' }}>{formatCurrency(row.interestComponent)}</td>
-                <td style={{ padding: '3px', textAlign: 'right', color: '#15803d' }}>{formatCurrency(row.principalComponent)}</td>
-                <td style={{ padding: '3px', textAlign: 'right', color: row.prePayment > 0 ? '#2563eb' : '#d1d5db' }}>
+                <td style={{ padding: '3px', textAlign: 'right' }}>
+                  {formatCurrency(row.openingBalance)}
+                </td>
+                <td style={{ padding: '3px', textAlign: 'right', color: '#dc2626' }}>
+                  {formatCurrency(row.interestComponent)}
+                </td>
+                <td style={{ padding: '3px', textAlign: 'right', color: '#15803d' }}>
+                  {formatCurrency(row.principalComponent)}
+                </td>
+                <td
+                  style={{
+                    padding: '3px',
+                    textAlign: 'right',
+                    color: row.prePayment > 0 ? '#2563eb' : '#d1d5db',
+                  }}
+                >
                   {row.prePayment > 0 ? formatCurrency(row.prePayment) : '-'}
                 </td>
-                <td style={{ padding: '3px', textAlign: 'right' }}>{formatCurrency(row.totalPayment)}</td>
-                <td style={{ padding: '3px', textAlign: 'right', fontWeight: 600 }}>{formatCurrency(row.closingBalance)}</td>
+                <td style={{ padding: '3px', textAlign: 'right' }}>
+                  {formatCurrency(row.totalPayment)}
+                </td>
+                <td style={{ padding: '3px', textAlign: 'right', fontWeight: 600 }}>
+                  {formatCurrency(row.closingBalance)}
+                </td>
               </tr>
             );
           })}

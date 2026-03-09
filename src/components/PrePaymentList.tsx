@@ -10,14 +10,12 @@ interface Props {
 
 export function PrePaymentList({ prePayments, onAdd, onRemove }: Props) {
   const sorted = [...prePayments].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   );
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-gray-900">
-        Pre-Payments
-      </h2>
+      <h2 className="mb-4 text-lg font-semibold text-gray-900">Pre-Payments</h2>
       <PrePaymentForm onAdd={onAdd} />
       {sorted.length > 0 && (
         <div className="mt-4 overflow-x-auto">
@@ -31,10 +29,7 @@ export function PrePaymentList({ prePayments, onAdd, onRemove }: Props) {
             </thead>
             <tbody>
               {sorted.map((pp) => (
-                <tr
-                  key={pp.id}
-                  className="border-b border-gray-100 last:border-0"
-                >
+                <tr key={pp.id} className="border-b border-gray-100 last:border-0">
                   <td className="py-2 pr-4">{formatDateFull(pp.date)}</td>
                   <td className="py-2 pr-4">{formatCurrency(pp.amount)}</td>
                   <td className="py-2">

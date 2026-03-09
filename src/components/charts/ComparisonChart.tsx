@@ -36,9 +36,7 @@ export function ComparisonChart({ summary, simulatedResult }: Props) {
 
   return (
     <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-semibold text-gray-900">
-        Original vs Actual Comparison
-      </h3>
+      <h3 className="mb-4 text-lg font-semibold text-gray-900">Original vs Actual Comparison</h3>
       <ResponsiveContainer width="100%" height={350}>
         <BarChart data={data} barCategoryGap="30%">
           <CartesianGrid strokeDasharray="3 3" />
@@ -48,9 +46,7 @@ export function ComparisonChart({ summary, simulatedResult }: Props) {
           <Legend />
           <Bar dataKey="Original Schedule" fill="#94a3b8" />
           <Bar dataKey="Actual (with adjustments)" fill="#2563eb" />
-          {simulatedResult && (
-            <Bar dataKey="Simulated (what-if)" fill="#f59e0b" />
-          )}
+          {simulatedResult && <Bar dataKey="Simulated (what-if)" fill="#f59e0b" />}
         </BarChart>
       </ResponsiveContainer>
     </div>

@@ -20,9 +20,10 @@ export function SummaryCards({ summary, loan }: Props) {
       break;
     }
   }
-  const principalRepaid = monthsCompleted > 0
-    ? loan.principal - (wp.schedule[monthsCompleted - 1]?.closingBalance ?? 0)
-    : 0;
+  const principalRepaid =
+    monthsCompleted > 0
+      ? loan.principal - (wp.schedule[monthsCompleted - 1]?.closingBalance ?? 0)
+      : 0;
   const progressPct = ((principalRepaid / loan.principal) * 100).toFixed(1);
 
   const cards = [
@@ -79,13 +80,8 @@ export function SummaryCards({ summary, loan }: Props) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cards.map((card) => (
-        <div
-          key={card.label}
-          className={`rounded-xl border p-4 ${card.color}`}
-        >
-          <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-            {card.label}
-          </p>
+        <div key={card.label} className={`rounded-xl border p-4 ${card.color}`}>
+          <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">{card.label}</p>
           <p className="mt-1 text-xl font-bold text-gray-900">{card.value}</p>
           <p className="mt-1 text-xs text-gray-500">{card.sub}</p>
         </div>

@@ -22,13 +22,23 @@ import { YearlySummaryChart } from './components/charts/YearlySummaryChart';
 
 function App() {
   const {
-    loan, setLoan,
-    prePayments, addPrePayment, removePrePayment,
-    rateChanges, addRateChange, removeRateChange,
+    loan,
+    setLoan,
+    prePayments,
+    addPrePayment,
+    removePrePayment,
+    rateChanges,
+    addRateChange,
+    removeRateChange,
   } = useLoanData();
   const { summary, error } = useAmortization(loan, prePayments, rateChanges);
   const { reportRef, isGenerating, exportPdf } = useExportPdf();
-  const { data: recommendations, loading: recLoading, error: recError, fetchRecommendations } = useRecommendations(loan, prePayments, rateChanges);
+  const {
+    data: recommendations,
+    loading: recLoading,
+    error: recError,
+    fetchRecommendations,
+  } = useRecommendations(loan, prePayments, rateChanges);
 
   // Simulator state (not persisted)
   const [plannedPPs, setPlannedPPs] = useState<PrePayment[]>([]);
@@ -61,15 +71,36 @@ function App() {
               {isGenerating ? (
                 <>
                   <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
                   </svg>
                   Generating...
                 </>
               ) : (
                 <>
-                  <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    />
                   </svg>
                   Export PDF
                 </>
@@ -136,21 +167,12 @@ function App() {
             )}
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              <BalanceChart
-                summary={summary}
-                simulatedResult={simulatedResult}
-              />
-              <CumulativeInterestChart
-                summary={summary}
-                simulatedResult={simulatedResult}
-              />
+              <BalanceChart summary={summary} simulatedResult={simulatedResult} />
+              <CumulativeInterestChart summary={summary} simulatedResult={simulatedResult} />
             </div>
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              <ComparisonChart
-                summary={summary}
-                simulatedResult={simulatedResult}
-              />
+              <ComparisonChart summary={summary} simulatedResult={simulatedResult} />
               <PaymentBreakupChart summary={summary} />
             </div>
 
@@ -159,18 +181,13 @@ function App() {
               isSimulated={!!simulatedResult}
             />
 
-            <YearlySummaryChart
-              schedule={activeResult!.schedule}
-              isSimulated={!!simulatedResult}
-            />
+            <YearlySummaryChart schedule={activeResult!.schedule} isSimulated={!!simulatedResult} />
 
             <AmortizationTable
               schedule={activeResult!.schedule}
               isSimulated={!!simulatedResult}
               actualScheduleLength={summary.withPrePayments.schedule.length}
-              plannedPPMonths={new Set(
-                plannedPPs.map((pp) => pp.date.substring(0, 7))
-              )}
+              plannedPPMonths={new Set(plannedPPs.map((pp) => pp.date.substring(0, 7)))}
             />
           </>
         )}

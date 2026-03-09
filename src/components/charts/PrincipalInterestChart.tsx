@@ -43,21 +43,13 @@ export function PrincipalInterestChart({ schedule, isSimulated }: Props) {
           <YAxis tickFormatter={(v) => formatCurrency(v)} width={100} />
           <Tooltip
             formatter={(value) => formatCurrency(Number(value))}
-            labelFormatter={(_: unknown, payload: readonly { payload?: { date?: string } }[]) => payload?.[0]?.payload?.date || ''}
+            labelFormatter={(_: unknown, payload: readonly { payload?: { date?: string } }[]) =>
+              payload?.[0]?.payload?.date || ''
+            }
           />
           <Legend />
-          <Bar
-            dataKey="principal"
-            name="Principal"
-            stackId="a"
-            fill="#22c55e"
-          />
-          <Bar
-            dataKey="interest"
-            name="Interest"
-            stackId="a"
-            fill="#ef4444"
-          />
+          <Bar dataKey="principal" name="Principal" stackId="a" fill="#22c55e" />
+          <Bar dataKey="interest" name="Interest" stackId="a" fill="#ef4444" />
         </BarChart>
       </ResponsiveContainer>
     </div>
