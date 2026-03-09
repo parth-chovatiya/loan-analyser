@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
-const siteUrl = 'https://loan-analyser.vercel.app';
+const siteUrl = 'https://loanalyzer.vercel.app';
 const title = 'Loan Analyser - Free EMI Calculator & Pre-Payment Planner';
 const description =
   'Free online loan analysis tool for India. Calculate EMI breakdowns, plan pre-payments to save lakhs in interest, simulate what-if scenarios, track rate changes, and get smart repayment strategies. Works for home loans, personal loans, and car loans.';
@@ -101,7 +102,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
