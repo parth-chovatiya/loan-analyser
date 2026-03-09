@@ -1,0 +1,54 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "21d4194cee1c",
+  "session_id": "eaef663d-d435-4f5e-b2e0-c71683ede33c",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-09T13:57:52.161188Z",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".prettierignore",
+    ".prettierrc",
+    "package-lock.json",
+    "package.json",
+    "src/App.tsx",
+    "src/app/globals.css",
+    "src/app/layout.tsx",
+    "src/components/AmortizationTable.tsx",
+    "src/components/PrePaymentForm.tsx",
+    "src/components/PrePaymentList.tsx",
+    "src/components/RateChangeList.tsx",
+    "src/components/RecommendationPanel.tsx",
+    "src/components/SummaryCards.tsx",
+    "src/components/WhatIfSimulator.tsx",
+    "src/components/charts/BalanceChart.tsx",
+    "src/components/charts/ComparisonChart.tsx",
+    "src/components/charts/CumulativeInterestChart.tsx",
+    "src/components/charts/PaymentBreakupChart.tsx",
+    "src/components/charts/PrincipalInterestChart.tsx",
+    "src/components/pdf/PdfReport.tsx",
+    "src/utils/formatters.ts",
+    "src/utils/summary.ts"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "03e92fe89d5c",
+  "token_usage": {
+    "input_tokens": 101,
+    "cache_creation_tokens": 109354,
+    "cache_read_tokens": 5706083,
+    "output_tokens": 36486,
+    "api_call_count": 91
+  },
+  "session_metrics": {
+    "turn_count": 5
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-09T13:57:51.718727Z",
+    "agent_lines": 350,
+    "human_added": 29,
+    "human_modified": 44,
+    "human_removed": 0,
+    "total_committed": 423,
+    "agent_percentage": 82.74231678486997
+  }
+}

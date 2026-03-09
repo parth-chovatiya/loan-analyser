@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "21d4194cee1c",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".prettierignore",
+    ".prettierrc",
+    "package-lock.json",
+    "package.json",
+    "src/App.tsx",
+    "src/app/globals.css",
+    "src/app/layout.tsx",
+    "src/components/AmortizationTable.tsx",
+    "src/components/PrePaymentForm.tsx",
+    "src/components/PrePaymentList.tsx",
+    "src/components/RateChangeList.tsx",
+    "src/components/RecommendationPanel.tsx",
+    "src/components/SummaryCards.tsx",
+    "src/components/WhatIfSimulator.tsx",
+    "src/components/charts/BalanceChart.tsx",
+    "src/components/charts/ComparisonChart.tsx",
+    "src/components/charts/CumulativeInterestChart.tsx",
+    "src/components/charts/PaymentBreakupChart.tsx",
+    "src/components/charts/PrincipalInterestChart.tsx",
+    "src/components/pdf/PdfReport.tsx",
+    "src/utils/formatters.ts",
+    "src/utils/summary.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/21/d4194cee1c/0/metadata.json",
+      "transcript": "/21/d4194cee1c/0/full.jsonl",
+      "content_hash": "/21/d4194cee1c/0/content_hash.txt",
+      "prompt": "/21/d4194cee1c/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 101,
+    "cache_creation_tokens": 109354,
+    "cache_read_tokens": 5706083,
+    "output_tokens": 36486,
+    "api_call_count": 91
+  }
+}
