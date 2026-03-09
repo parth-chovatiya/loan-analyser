@@ -1,0 +1,52 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "3f87b96e5017",
+  "session_id": "eaef663d-d435-4f5e-b2e0-c71683ede33c",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-09T13:49:51.705614Z",
+  "branch": "main",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "src/app/api/recommend/route.ts",
+    "src/components/RecommendationPanel.tsx",
+    "src/hooks/useAmortization.ts",
+    "src/hooks/useExportPdf.ts",
+    "src/hooks/useLoanData.ts",
+    "src/hooks/useRecommendations.ts",
+    "src/services/recommendations/emi-increase.ts",
+    "src/services/recommendations/index.ts",
+    "src/services/recommendations/lump-sum.ts",
+    "src/services/recommendations/prepayment.ts",
+    "src/services/recommendations/types.ts",
+    "src/services/recommendations/utils.ts",
+    "src/types/recommendation.ts",
+    "src/utils/amortization.ts",
+    "src/utils/formatters.ts",
+    "src/utils/storage.ts",
+    "src/utils/summary.ts",
+    "src/utils/validation.ts"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "2fffe6d116bd",
+  "checkpoint_transcript_start": 448,
+  "transcript_lines_at_start": 448,
+  "token_usage": {
+    "input_tokens": 35,
+    "cache_creation_tokens": 37866,
+    "cache_read_tokens": 2381897,
+    "output_tokens": 16276,
+    "api_call_count": 29
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-09T13:49:51.249212Z",
+    "agent_lines": 317,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 317,
+    "agent_percentage": 100
+  }
+}

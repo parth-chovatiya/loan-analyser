@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "3f87b96e5017",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "src/app/api/recommend/route.ts",
+    "src/components/RecommendationPanel.tsx",
+    "src/hooks/useAmortization.ts",
+    "src/hooks/useExportPdf.ts",
+    "src/hooks/useLoanData.ts",
+    "src/hooks/useRecommendations.ts",
+    "src/services/recommendations/emi-increase.ts",
+    "src/services/recommendations/index.ts",
+    "src/services/recommendations/lump-sum.ts",
+    "src/services/recommendations/prepayment.ts",
+    "src/services/recommendations/types.ts",
+    "src/services/recommendations/utils.ts",
+    "src/types/recommendation.ts",
+    "src/utils/amortization.ts",
+    "src/utils/formatters.ts",
+    "src/utils/storage.ts",
+    "src/utils/summary.ts",
+    "src/utils/validation.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/3f/87b96e5017/0/metadata.json",
+      "transcript": "/3f/87b96e5017/0/full.jsonl",
+      "content_hash": "/3f/87b96e5017/0/content_hash.txt",
+      "prompt": "/3f/87b96e5017/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 35,
+    "cache_creation_tokens": 37866,
+    "cache_read_tokens": 2381897,
+    "output_tokens": 16276,
+    "api_call_count": 29
+  }
+}

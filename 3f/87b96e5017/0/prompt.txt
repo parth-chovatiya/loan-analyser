@@ -1,0 +1,12 @@
+It shows multiple strategy recommendation. I don't wanna show the loan switching strategy, Also, one strategy shows 3 times like increase emi by 20%, 15%, 10%. etc... Lets reduce the strategy and shows the only impactful one.
+
+---
+
+I was getting an error: "ENOENT: no such file or directory, open '/Users/parth/Parth/Dev/Projects/loan-analyser/.next/server/pages/_document.js'
+
+"
+Please fix it
+
+---
+
+Great! Now, Can we please write a good production ready code... As right now, all functions, APIs are in one file. Lets seprate it to multiple files, also lets write a arrow functions etc...
