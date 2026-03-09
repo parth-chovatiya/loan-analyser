@@ -7,16 +7,16 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  Cell,
 } from 'recharts';
-import type { LoanSummary } from '../../types/loan';
+import type { LoanSummary, AmortizationResult } from '../../types/loan';
 import { formatCurrency } from '../../utils/formatters';
 
 interface Props {
   summary: LoanSummary;
+  simulatedResult?: AmortizationResult | null;
 }
 
-export function ComparisonChart({ summary }: Props) {
+export function ComparisonChart({ summary, simulatedResult }: Props) {
   const { withPrePayments: wp, withoutPrePayments: wop } = summary;
 
   const data = [
@@ -24,11 +24,13 @@ export function ComparisonChart({ summary }: Props) {
       name: 'Total Interest',
       'Original Schedule': wop.totalInterest,
       'Actual (with adjustments)': wp.totalInterest,
+      ...(simulatedResult ? { 'Simulated (what-if)': simulatedResult.totalInterest } : {}),
     },
     {
       name: 'Total Paid',
       'Original Schedule': wop.totalAmountPaid,
       'Actual (with adjustments)': wp.totalAmountPaid,
+      ...(simulatedResult ? { 'Simulated (what-if)': simulatedResult.totalAmountPaid } : {}),
     },
   ];
 
@@ -46,6 +48,9 @@ export function ComparisonChart({ summary }: Props) {
           <Legend />
           <Bar dataKey="Original Schedule" fill="#94a3b8" />
           <Bar dataKey="Actual (with adjustments)" fill="#2563eb" />
+          {simulatedResult && (
+            <Bar dataKey="Simulated (what-if)" fill="#f59e0b" />
+          )}
         </BarChart>
       </ResponsiveContainer>
     </div>

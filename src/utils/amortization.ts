@@ -88,11 +88,26 @@ export function calculateAmortization(
       monthlyRate = currentAnnualRate / 100 / 12;
     }
 
+    // Apply pre-payment BEFORE interest calculation
+    // In Indian home loans, pre-payment reduces the principal immediately,
+    // so interest from that point is calculated on the reduced balance.
+    let ppAmount = 0;
+    const scheduledPP = ppByMonth.get(monthKey) || 0;
+    if (scheduledPP > 0 && outstanding > 0.01) {
+      ppAmount = Math.min(scheduledPP, outstanding);
+      outstanding -= ppAmount;
+      totalPaid += ppAmount;
+    }
+
     const interest = outstanding * monthlyRate;
     let principalPortion: number;
     let emiPaid: number;
 
-    if (outstanding + interest <= loan.emi) {
+    if (outstanding <= 0.01) {
+      // Pre-payment already cleared the loan
+      emiPaid = 0;
+      principalPortion = 0;
+    } else if (outstanding + interest <= loan.emi) {
       // Final partial EMI
       emiPaid = outstanding + interest;
       principalPortion = outstanding;
@@ -104,15 +119,6 @@ export function calculateAmortization(
     outstanding -= principalPortion;
     totalInterest += interest;
     totalPaid += emiPaid;
-
-    // Apply pre-payment after EMI
-    let ppAmount = 0;
-    const scheduledPP = ppByMonth.get(monthKey) || 0;
-    if (scheduledPP > 0 && outstanding > 0.01) {
-      ppAmount = Math.min(scheduledPP, outstanding);
-      outstanding -= ppAmount;
-      totalPaid += ppAmount;
-    }
 
     // Round near-zero to zero
     if (outstanding < 0.01) outstanding = 0;

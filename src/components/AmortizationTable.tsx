@@ -5,13 +5,21 @@ import { formatCurrency, formatDate } from '../utils/formatters';
 
 interface Props {
   schedule: AmortizationRow[];
+  isSimulated?: boolean;
+  actualScheduleLength?: number;
+  plannedPPMonths?: Set<string>;
 }
 
 function getCurrentMonthKey(): string {
   return format(new Date(), 'yyyy-MM');
 }
 
-export function AmortizationTable({ schedule }: Props) {
+export function AmortizationTable({
+  schedule,
+  isSimulated,
+  actualScheduleLength,
+  plannedPPMonths,
+}: Props) {
   const currentMonthKey = getCurrentMonthKey();
   const currentRowRef = useRef<HTMLTableRowElement>(null);
 
@@ -30,8 +38,18 @@ export function AmortizationTable({ schedule }: Props) {
       <div className="p-6 pb-0">
         <h2 className="text-lg font-semibold text-gray-900">
           Amortization Schedule
+          {isSimulated && (
+            <span className="ml-2 text-sm font-normal text-amber-600">(simulated)</span>
+          )}
         </h2>
-        <p className="text-sm text-gray-500 mt-1">{schedule.length} months</p>
+        <p className="text-sm text-gray-500 mt-1">
+          {schedule.length} months
+          {isSimulated && actualScheduleLength && actualScheduleLength !== schedule.length && (
+            <span className="text-amber-600">
+              {' '}(was {actualScheduleLength} months)
+            </span>
+          )}
+        </p>
       </div>
       <div className="overflow-x-auto p-4">
         <table className="w-full text-left text-sm">
@@ -65,10 +83,13 @@ export function AmortizationTable({ schedule }: Props) {
                   hasRateChanges &&
                   row.month > 1 &&
                   row.annualRate !== schedule[row.month - 2]?.annualRate;
+                const isPlannedPP = plannedPPMonths?.has(rowMonthKey) && row.prePayment > 0;
 
                 let rowClass = 'border-b border-gray-100 last:border-0';
                 if (isCurrentMonth) {
                   rowClass += ' bg-blue-100 ring-2 ring-blue-400 ring-inset';
+                } else if (isPlannedPP) {
+                  rowClass += ' bg-amber-50 border-l-4 border-l-amber-400';
                 } else if (row.prePayment > 0) {
                   rowClass += ' bg-green-50';
                 } else if (rateChanged) {
@@ -87,6 +108,13 @@ export function AmortizationTable({ schedule }: Props) {
                           {row.month}
                           <span className="rounded bg-blue-600 px-1.5 py-0.5 text-[10px] font-bold text-white leading-none">
                             NOW
+                          </span>
+                        </span>
+                      ) : isPlannedPP ? (
+                        <span className="inline-flex items-center gap-1">
+                          {row.month}
+                          <span className="rounded bg-amber-500 px-1.5 py-0.5 text-[10px] font-bold text-white leading-none">
+                            PLAN
                           </span>
                         </span>
                       ) : (
@@ -112,7 +140,7 @@ export function AmortizationTable({ schedule }: Props) {
                     </td>
                     <td className="py-2 pr-3 text-right tabular-nums">
                       {row.prePayment > 0 ? (
-                        <span className="font-medium text-blue-600">
+                        <span className={`font-medium ${isPlannedPP ? 'text-amber-600' : 'text-blue-600'}`}>
                           {formatCurrency(row.prePayment)}
                         </span>
                       ) : (

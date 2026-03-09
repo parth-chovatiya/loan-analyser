@@ -10,21 +10,23 @@ import {
   ReferenceLine,
 } from 'recharts';
 import { format } from 'date-fns';
-import type { LoanSummary } from '../../types/loan';
+import type { LoanSummary, AmortizationResult } from '../../types/loan';
 import { formatCurrency, formatDate } from '../../utils/formatters';
 
 interface Props {
   summary: LoanSummary;
+  simulatedResult?: AmortizationResult | null;
 }
 
-export function BalanceChart({ summary }: Props) {
+export function BalanceChart({ summary, simulatedResult }: Props) {
   const { withPrePayments, withoutPrePayments } = summary;
 
   const currentMonthKey = format(new Date(), 'yyyy-MM');
 
   const maxLen = Math.max(
     withPrePayments.schedule.length,
-    withoutPrePayments.schedule.length
+    withoutPrePayments.schedule.length,
+    simulatedResult?.schedule.length ?? 0
   );
 
   let currentMonthIndex: number | null = null;
@@ -33,17 +35,22 @@ export function BalanceChart({ summary }: Props) {
     const dateStr =
       withoutPrePayments.schedule[i]?.date ??
       withPrePayments.schedule[i]?.date ??
+      simulatedResult?.schedule[i]?.date ??
       '';
     const monthKey = dateStr.substring(0, 7);
     if (monthKey === currentMonthKey) {
       currentMonthIndex = i + 1;
     }
-    return {
+    const entry: Record<string, number | string> = {
       month: i + 1,
       label: dateStr ? formatDate(dateStr) : '',
       withoutPP: withoutPrePayments.schedule[i]?.closingBalance ?? 0,
       withPP: withPrePayments.schedule[i]?.closingBalance ?? 0,
     };
+    if (simulatedResult) {
+      entry.simulated = simulatedResult.schedule[i]?.closingBalance ?? 0;
+    }
+    return entry;
   });
 
   return (
@@ -64,7 +71,7 @@ export function BalanceChart({ summary }: Props) {
           />
           <Tooltip
             formatter={(value: number) => formatCurrency(value)}
-            labelFormatter={(label) => `Month ${label}`}
+            labelFormatter={(_: string, payload: Array<{ payload?: { label?: string } }>) => payload?.[0]?.payload?.label || ''}
           />
           <Legend />
           {currentMonthIndex !== null && (
@@ -92,6 +99,17 @@ export function BalanceChart({ summary }: Props) {
             strokeWidth={2}
             dot={false}
           />
+          {simulatedResult && (
+            <Line
+              type="monotone"
+              dataKey="simulated"
+              name="Simulated (what-if)"
+              stroke="#f59e0b"
+              strokeWidth={2}
+              strokeDasharray="6 3"
+              dot={false}
+            />
+          )}
         </LineChart>
       </ResponsiveContainer>
     </div>
