@@ -1,0 +1,40 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "ff02e21ea6ae",
+  "session_id": "30b2f202-889b-4dbe-acd1-18b22fde1ae0",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-09T12:03:28.338913Z",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "src/App.tsx",
+    "src/components/AmortizationTable.tsx",
+    "src/components/SummaryCards.tsx",
+    "src/components/WhatIfSimulator.tsx",
+    "src/components/charts/BalanceChart.tsx",
+    "src/components/charts/ComparisonChart.tsx",
+    "src/components/charts/PrincipalInterestChart.tsx",
+    "src/utils/amortization.ts"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "f44df9e8a07f",
+  "token_usage": {
+    "input_tokens": 49,
+    "cache_creation_tokens": 69392,
+    "cache_read_tokens": 1760183,
+    "output_tokens": 25540,
+    "api_call_count": 39
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-09T12:03:27.89561Z",
+    "agent_lines": 412,
+    "human_added": 379,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 791,
+    "agent_percentage": 52.08596713021492
+  }
+}

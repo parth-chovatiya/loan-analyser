@@ -1,0 +1,5 @@
+Now, I wanna implement one feature where I can add amount about future I wanna do a pre-payment and I can calculate the impact of it in the loan of that pre-payment. Please help me to implement this feature in user friendly.
+
+---
+
+I wanna make simulator effect on the table, graph etc...  as well. Also, if you know, at the date when I do pre-payment, that amount interest reduce from the pre-payment date night. So check the calculation as well.

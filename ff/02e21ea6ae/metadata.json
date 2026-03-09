@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "ff02e21ea6ae",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "src/App.tsx",
+    "src/components/AmortizationTable.tsx",
+    "src/components/SummaryCards.tsx",
+    "src/components/WhatIfSimulator.tsx",
+    "src/components/charts/BalanceChart.tsx",
+    "src/components/charts/ComparisonChart.tsx",
+    "src/components/charts/PrincipalInterestChart.tsx",
+    "src/utils/amortization.ts"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ff/02e21ea6ae/0/metadata.json",
+      "transcript": "/ff/02e21ea6ae/0/full.jsonl",
+      "content_hash": "/ff/02e21ea6ae/0/content_hash.txt",
+      "prompt": "/ff/02e21ea6ae/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 49,
+    "cache_creation_tokens": 69392,
+    "cache_read_tokens": 1760183,
+    "output_tokens": 25540,
+    "api_call_count": 39
+  }
+}
