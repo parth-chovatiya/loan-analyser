@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "fc5519661721",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/components/charts/BalanceChart.tsx",
+    "src/components/charts/CumulativeInterestChart.tsx",
+    "src/components/charts/PaymentBreakupChart.tsx",
+    "src/components/charts/PrincipalInterestChart.tsx",
+    "src/components/charts/YearlySummaryChart.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/fc/5519661721/0/metadata.json",
+      "transcript": "/fc/5519661721/0/full.jsonl",
+      "content_hash": "/fc/5519661721/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 47,
+    "cache_creation_tokens": 49043,
+    "cache_read_tokens": 1265524,
+    "output_tokens": 13886,
+    "api_call_count": 37
+  }
+}
