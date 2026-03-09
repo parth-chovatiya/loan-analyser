@@ -1,0 +1,67 @@
+- Export to PDF
+-------------------------------------------------------------------
+- “Best Strategy Recommendation” (AI Advisor)
+⚡ Recommendation
+If you prepay ₹3L in year 3, you will save ₹8,20,000 in interest
+and reduce the loan tenure by 4 years.
+
+Your current interest rate is 9.5%.
+Average market rate is 8.1%.
+
+Refinancing could save ₹6,40,000.
+
+-------------------------------------------------------------------
+
+Loan Health Score: 72 / 100
+
+Based on:
+	•	interest rate vs market
+	•	loan tenure
+	•	prepayment history
+	•	debt-to-income ratio
+
+Then suggest improvements.
+
+People love scores.
+
+-------------------------------------------------------------------
+
+Smart Notifications
+
+📢 You can save ₹1.8L interest if you prepay ₹50k this year
+
+📉 RBI reduced repo rate.
+You may qualify for lower interest rate.
+
+-------------------------------------------------------------------
+
+Multi-Loan Strategy Planner
+
+Many people have multiple loans:
+	•	home loan
+	•	personal loan
+	•	credit card
+	•	car loan
+
+Let them prioritize payoff strategy.
+
+Example strategies:
+	•	Avalanche (highest interest first)
+	•	Snowball (smallest loan first)
+
+Show payoff timeline.
+
+
+-------------------------------------------------------------------
+
+Loan Payoff Countdown
+
+🏁 Loan Free Date
+15 July 2042
+
+With progress bar.
+People love tracking progress.
+
+-------------------------------------------------------------------
+-------------------------------------------------------------------
+-------------------------------------------------------------------
