@@ -1,0 +1,49 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "d8c8d0e164e9",
+  "session_id": "0701d1d4-d35e-41ba-b3e7-6fd2de7e12f6",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-10T16:07:24.515602Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "src/App.tsx",
+    "src/components/AmortizationTable.tsx",
+    "src/components/LoanForm.tsx",
+    "src/components/PrePaymentForm.tsx",
+    "src/components/PrePaymentList.tsx",
+    "src/components/RateChangeList.tsx",
+    "src/components/RecommendationPanel.tsx",
+    "src/components/SummaryCards.tsx",
+    "src/components/WhatIfSimulator.tsx",
+    "src/components/charts/BalanceChart.tsx",
+    "src/components/charts/ComparisonChart.tsx",
+    "src/components/charts/CumulativeInterestChart.tsx",
+    "src/components/charts/PaymentBreakupChart.tsx",
+    "src/components/charts/PrincipalInterestChart.tsx",
+    "src/components/charts/YearlySummaryChart.tsx",
+    "src/utils/formatters.ts"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-6",
+  "turn_id": "20f3891989a6",
+  "token_usage": {
+    "input_tokens": 40,
+    "cache_creation_tokens": 74613,
+    "cache_read_tokens": 2482364,
+    "output_tokens": 21679,
+    "api_call_count": 38
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-10T16:07:24.091689Z",
+    "agent_lines": 273,
+    "human_added": 0,
+    "human_modified": 4,
+    "human_removed": 0,
+    "total_committed": 277,
+    "agent_percentage": 98.55595667870037
+  }
+}

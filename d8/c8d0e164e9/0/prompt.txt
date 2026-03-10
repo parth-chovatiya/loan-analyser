@@ -1,0 +1,1 @@
+Graph & UI/UX is not properly visible in the mobile phone. Please make a nessessory changes to make this responsive with better UI/UX. Also, I can see that, graph UI/UX is also not up great. Please make a nessesory changes and give me better UI/UX.
