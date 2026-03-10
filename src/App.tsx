@@ -133,7 +133,7 @@ const App = () => {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <main className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 py-5 sm:py-8 space-y-5 sm:space-y-8">
         {/* Loan Form */}
         <LoanForm loan={loan} onSubmit={setLoan} />
 
@@ -162,7 +162,7 @@ const App = () => {
             <div className="flex border-b border-slate-200">
               <button
                 onClick={() => setActiveTab('prepayments')}
-                className={`cursor-pointer flex-1 px-6 py-3.5 text-sm font-medium transition-colors relative ${
+                className={`cursor-pointer flex-1 px-4 sm:px-6 py-3 sm:py-3.5 text-sm font-medium transition-colors relative ${
                   activeTab === 'prepayments'
                     ? 'text-blue-600 bg-blue-50/50'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
@@ -180,7 +180,7 @@ const App = () => {
               </button>
               <button
                 onClick={() => setActiveTab('rates')}
-                className={`cursor-pointer flex-1 px-6 py-3.5 text-sm font-medium transition-colors relative ${
+                className={`cursor-pointer flex-1 px-4 sm:px-6 py-3 sm:py-3.5 text-sm font-medium transition-colors relative ${
                   activeTab === 'rates'
                     ? 'text-indigo-600 bg-indigo-50/50'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
@@ -197,7 +197,7 @@ const App = () => {
                 )}
               </button>
             </div>
-            <div className="p-6">
+            <div className="p-4 sm:p-6">
               {activeTab === 'prepayments' ? (
                 <PrePaymentList
                   prePayments={prePayments}
@@ -241,28 +241,30 @@ const App = () => {
 
             {/* Simulation Banner */}
             {simulatedResult && (
-              <div className="flex items-center gap-3 rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 px-5 py-3 text-sm">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100">
-                  <svg
-                    className="h-4 w-4 text-amber-600"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"
-                    />
-                  </svg>
-                </div>
-                <div className="flex-1">
-                  <span className="font-semibold text-amber-800">Simulation active</span>
-                  <span className="text-amber-700">
-                    {' '}
-                    — Charts and table reflect your planned pre-payments
-                  </span>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 px-4 sm:px-5 py-3 text-sm">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100">
+                    <svg
+                      className="h-4 w-4 text-amber-600"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="2"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"
+                      />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <span className="font-semibold text-amber-800">Simulation active</span>
+                    <span className="text-amber-700 hidden sm:inline">
+                      {' '}
+                      — Charts reflect planned pre-payments
+                    </span>
+                  </div>
                 </div>
                 <button
                   onClick={() => setPlannedPPs([])}
@@ -274,12 +276,12 @@ const App = () => {
             )}
 
             {/* Charts */}
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
               <BalanceChart summary={summary} simulatedResult={simulatedResult} />
               <CumulativeInterestChart summary={summary} simulatedResult={simulatedResult} />
             </div>
 
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
               <ComparisonChart summary={summary} simulatedResult={simulatedResult} />
               <PaymentBreakupChart summary={summary} />
             </div>

@@ -44,7 +44,7 @@ export const RecommendationPanel = ({ data, loading, error, onFetch }: Props) =>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="cursor-pointer flex w-full items-center justify-between px-6 py-5 text-left transition-colors hover:bg-slate-50/50"
+        className="cursor-pointer flex w-full items-center justify-between px-4 sm:px-6 py-4 sm:py-5 text-left transition-colors hover:bg-slate-50/50"
       >
         <div className="flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-md shadow-indigo-500/20">
@@ -79,7 +79,7 @@ export const RecommendationPanel = ({ data, loading, error, onFetch }: Props) =>
       </button>
 
       {isOpen && (
-        <div className="border-t border-slate-100 px-6 py-5 space-y-5">
+        <div className="border-t border-slate-100 px-4 sm:px-6 py-4 sm:py-5 space-y-5">
           {!data && !loading && !error && (
             <div className="text-center py-8">
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-50">
@@ -215,9 +215,9 @@ export const RecommendationPanel = ({ data, loading, error, onFetch }: Props) =>
                           <p className="mt-1.5 text-xs text-slate-500 leading-relaxed">
                             {rec.description}
                           </p>
-                          <div className="mt-3 flex gap-5">
+                          <div className="mt-3 flex gap-4 sm:gap-5">
                             <div>
-                              <p className="text-lg font-bold text-emerald-600">
+                              <p className="text-base sm:text-lg font-bold text-emerald-600">
                                 {formatCurrency(rec.impact.interestSaved)}
                               </p>
                               <p className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">
@@ -225,7 +225,7 @@ export const RecommendationPanel = ({ data, loading, error, onFetch }: Props) =>
                               </p>
                             </div>
                             <div>
-                              <p className="text-lg font-bold text-blue-600">
+                              <p className="text-base sm:text-lg font-bold text-blue-600">
                                 {rec.impact.monthsSaved} mo
                               </p>
                               <p className="text-[10px] font-medium text-slate-400 uppercase tracking-wider">

@@ -42,7 +42,7 @@ export const LoanForm = ({ loan, onSubmit }: Props) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm"
+      className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 lg:p-8 shadow-sm"
     >
       <div className="flex items-center gap-3 mb-6">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50">

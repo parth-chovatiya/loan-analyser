@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import type { LoanSummary } from '../../types/loan';
 import { formatCurrency } from '../../utils/formatters';
@@ -8,7 +9,19 @@ interface Props {
 
 const COLORS = ['#22c55e', '#ef4444'];
 
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+};
+
 export const PaymentBreakupChart = ({ summary }: Props) => {
+  const isMobile = useIsMobile();
   const { withPrePayments: wp } = summary;
   const principalPaid = wp.totalAmountPaid - wp.totalInterest;
 
@@ -48,7 +61,7 @@ export const PaymentBreakupChart = ({ summary }: Props) => {
         textAnchor="middle"
         dominantBaseline="central"
         fontWeight="bold"
-        fontSize={14}
+        fontSize={isMobile ? 12 : 14}
       >
         {pct}%
       </text>
@@ -56,15 +69,16 @@ export const PaymentBreakupChart = ({ summary }: Props) => {
   };
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-bold text-slate-900">Payment Breakup</h3>
-      <ResponsiveContainer width="100%" height={350}>
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
+      <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-bold text-slate-900">Payment Breakup</h3>
+      <ResponsiveContainer width="100%" height={isMobile ? 240 : 350}>
         <PieChart>
           <Pie
             data={data}
             cx="50%"
             cy="50%"
-            outerRadius={130}
+            outerRadius={isMobile ? 85 : 130}
+            innerRadius={isMobile ? 30 : 45}
             dataKey="value"
             labelLine={false}
             label={renderLabel}
@@ -73,10 +87,13 @@ export const PaymentBreakupChart = ({ summary }: Props) => {
               <Cell key={index} fill={COLORS[index]} />
             ))}
           </Pie>
-          <Tooltip formatter={(value) => formatCurrency(Number(value))} />
+          <Tooltip
+            formatter={(value) => formatCurrency(Number(value))}
+            contentStyle={{ fontSize: 12, borderRadius: 12, border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
+          />
         </PieChart>
       </ResponsiveContainer>
-      <div className="mt-2 flex justify-center gap-6 text-sm">
+      <div className="mt-2 flex justify-center gap-4 sm:gap-6 text-xs sm:text-sm">
         <span className="flex items-center gap-1.5">
           <span className="inline-block h-3 w-3 rounded-full bg-green-500" />
           Principal: {formatCurrency(principalPaid)}

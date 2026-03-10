@@ -227,25 +227,25 @@ export const SummaryCards = ({ summary, loan }: Props) => {
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
       {cards.map((card) => (
         <div
           key={card.label}
-          className={`group rounded-2xl border p-5 transition-all hover:shadow-md hover:-translate-y-0.5 ${card.accent}`}
+          className={`group rounded-xl sm:rounded-2xl border p-3 sm:p-5 transition-all hover:shadow-md hover:-translate-y-0.5 ${card.accent}`}
         >
-          <div className="flex items-center justify-between mb-3">
-            <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider opacity-70">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <span className="flex items-center gap-1 sm:gap-1.5 text-[10px] sm:text-xs font-semibold uppercase tracking-wider opacity-70">
               {card.label}
               <InfoTooltip text={card.tooltip} />
             </span>
             <div
-              className={`flex h-8 w-8 items-center justify-center rounded-lg ${card.iconBg} transition-transform group-hover:scale-110`}
+              className={`flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-md sm:rounded-lg ${card.iconBg} transition-transform group-hover:scale-110 [&_svg]:h-3.5 [&_svg]:w-3.5 sm:[&_svg]:h-5 sm:[&_svg]:w-5`}
             >
               {card.icon}
             </div>
           </div>
-          <p className="text-2xl font-bold tracking-tight">{card.value}</p>
-          <p className="mt-1 text-xs opacity-60">{card.sub}</p>
+          <p className="text-lg sm:text-2xl font-bold tracking-tight">{card.value}</p>
+          <p className="mt-0.5 sm:mt-1 text-[10px] sm:text-xs opacity-60 truncate">{card.sub}</p>
           {'progress' in card && (
             <div className="mt-3 h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
               <div

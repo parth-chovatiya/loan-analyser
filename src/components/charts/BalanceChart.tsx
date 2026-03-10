@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   LineChart,
   Line,
@@ -11,15 +12,27 @@ import {
 } from 'recharts';
 import { format } from 'date-fns';
 import type { LoanSummary, AmortizationResult } from '../../types/loan';
-import { formatCurrency, formatDate } from '../../utils/formatters';
+import { formatCurrency, formatCurrencyShort, formatDate } from '../../utils/formatters';
 
 interface Props {
   summary: LoanSummary;
   simulatedResult?: AmortizationResult | null;
 }
 
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+};
+
 export const BalanceChart = ({ summary, simulatedResult }: Props) => {
   const { withPrePayments, withoutPrePayments } = summary;
+  const isMobile = useIsMobile();
 
   const currentMonthKey = format(new Date(), 'yyyy-MM');
 
@@ -54,33 +67,45 @@ export const BalanceChart = ({ summary, simulatedResult }: Props) => {
   });
 
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-bold text-slate-900">Outstanding Balance Over Time</h3>
-      <ResponsiveContainer width="100%" height={350}>
-        <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" label={{ value: 'Month', position: 'insideBottom', offset: -5 }} />
-          <YAxis tickFormatter={(v) => formatCurrency(v)} width={100} />
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
+      <h3 className="mb-3 sm:mb-4 text-base sm:text-lg font-bold text-slate-900">Outstanding Balance</h3>
+      <ResponsiveContainer width="100%" height={isMobile ? 260 : 350}>
+        <LineChart data={data} margin={isMobile ? { left: -10, right: 5, top: 5, bottom: 5 } : undefined}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+          <XAxis
+            dataKey="month"
+            tick={{ fontSize: isMobile ? 10 : 12 }}
+            label={isMobile ? undefined : { value: 'Month', position: 'insideBottom', offset: -5 }}
+          />
+          <YAxis
+            tickFormatter={(v) => formatCurrencyShort(v)}
+            width={isMobile ? 55 : 80}
+            tick={{ fontSize: isMobile ? 10 : 12 }}
+          />
           <Tooltip
             formatter={(value) => formatCurrency(Number(value))}
             labelFormatter={(_: unknown, payload: readonly { payload?: { label?: string } }[]) =>
               payload?.[0]?.payload?.label || ''
             }
+            contentStyle={{ fontSize: 12, borderRadius: 12, border: '1px solid #e2e8f0', boxShadow: '0 4px 12px rgba(0,0,0,0.08)' }}
           />
-          <Legend />
+          <Legend
+            iconSize={isMobile ? 8 : 14}
+            wrapperStyle={{ fontSize: isMobile ? 10 : 12, paddingTop: 8 }}
+          />
           {currentMonthIndex !== null && (
             <ReferenceLine
               x={currentMonthIndex}
               stroke="#2563eb"
               strokeWidth={2}
               strokeDasharray="4 4"
-              label={{ value: 'Now', position: 'top', fill: '#2563eb', fontWeight: 'bold' }}
+              label={isMobile ? undefined : { value: 'Now', position: 'top', fill: '#2563eb', fontWeight: 'bold' }}
             />
           )}
           <Line
             type="monotone"
             dataKey="withoutPP"
-            name="Original Schedule"
+            name="Original"
             stroke="#94a3b8"
             strokeWidth={2}
             dot={false}
@@ -88,7 +113,7 @@ export const BalanceChart = ({ summary, simulatedResult }: Props) => {
           <Line
             type="monotone"
             dataKey="withPP"
-            name="Actual (with adjustments)"
+            name="Actual"
             stroke="#2563eb"
             strokeWidth={2}
             dot={false}
@@ -97,7 +122,7 @@ export const BalanceChart = ({ summary, simulatedResult }: Props) => {
             <Line
               type="monotone"
               dataKey="simulated"
-              name="Simulated (what-if)"
+              name="Simulated"
               stroke="#f59e0b"
               strokeWidth={2}
               strokeDasharray="6 3"

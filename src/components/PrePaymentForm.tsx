@@ -21,14 +21,14 @@ export const PrePaymentForm = ({ onAdd }: Props) => {
     'rounded-xl border border-slate-200 bg-slate-50/50 px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 transition-colors focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20';
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-3">
+    <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] items-end gap-3">
       <div>
         <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
           Date
         </label>
         <input
           type="date"
-          className={inputClass}
+          className={`${inputClass} w-full`}
           value={date}
           onChange={(e) => setDate(e.target.value)}
           required
@@ -44,7 +44,7 @@ export const PrePaymentForm = ({ onAdd }: Props) => {
           </span>
           <input
             type="number"
-            className={`${inputClass} pl-8`}
+            className={`${inputClass} pl-8 w-full`}
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="1,00,000"
@@ -55,7 +55,7 @@ export const PrePaymentForm = ({ onAdd }: Props) => {
       </div>
       <button
         type="submit"
-        className="cursor-pointer inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md active:scale-[0.98]"
+        className="cursor-pointer inline-flex items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md active:scale-[0.98]"
       >
         <svg
           className="h-4 w-4"

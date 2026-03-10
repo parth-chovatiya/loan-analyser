@@ -112,7 +112,7 @@ export const PrePaymentList = ({ prePayments, onAdd, onUpdate, onRemove }: Props
                       <p className="text-xs text-slate-500">{formatDateFull(pp.date)}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 opacity-0 transition-all group-hover:opacity-100">
+                  <div className="flex items-center gap-1 sm:opacity-0 transition-all sm:group-hover:opacity-100">
                     <button
                       onClick={() => startEdit(pp)}
                       className="cursor-pointer rounded-lg p-1.5 text-slate-400 transition-all hover:bg-blue-50 hover:text-blue-500"

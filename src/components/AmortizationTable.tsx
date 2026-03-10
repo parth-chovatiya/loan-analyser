@@ -35,7 +35,7 @@ export const AmortizationTable = ({
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-      <div className="px-6 py-5 border-b border-slate-100">
+      <div className="px-4 sm:px-6 py-4 sm:py-5 border-b border-slate-100">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100">
             <svg

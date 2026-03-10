@@ -58,14 +58,14 @@ export const RateChangeList = ({ rateChanges, onAdd, onUpdate, onRemove }: Props
         Add rate changes when your bank revises interest rate. The new rate applies from the
         specified month onward.
       </p>
-      <form onSubmit={handleSubmit} className="flex flex-wrap items-end gap-3">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-[1fr_1fr_auto] items-end gap-3">
         <div>
           <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">
             Effective Date
           </label>
           <input
             type="date"
-            className={inputClass}
+            className={`${inputClass} w-full`}
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
@@ -78,7 +78,7 @@ export const RateChangeList = ({ rateChanges, onAdd, onUpdate, onRemove }: Props
           <div className="relative">
             <input
               type="number"
-              className={`${inputClass} pr-8`}
+              className={`${inputClass} pr-8 w-full`}
               value={rate}
               onChange={(e) => setRate(e.target.value)}
               placeholder="8.25"
@@ -94,7 +94,7 @@ export const RateChangeList = ({ rateChanges, onAdd, onUpdate, onRemove }: Props
         </div>
         <button
           type="submit"
-          className="cursor-pointer inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 hover:shadow-md active:scale-[0.98]"
+          className="cursor-pointer inline-flex items-center justify-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-indigo-700 hover:shadow-md active:scale-[0.98]"
         >
           <svg
             className="h-4 w-4"
@@ -177,7 +177,7 @@ export const RateChangeList = ({ rateChanges, onAdd, onUpdate, onRemove }: Props
                       <p className="text-xs text-slate-500">from {formatDateFull(rc.date)}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 opacity-0 transition-all group-hover:opacity-100">
+                  <div className="flex items-center gap-1 sm:opacity-0 transition-all sm:group-hover:opacity-100">
                     <button
                       onClick={() => startEdit(rc)}
                       className="cursor-pointer rounded-lg p-1.5 text-slate-400 transition-all hover:bg-indigo-50 hover:text-indigo-500"
