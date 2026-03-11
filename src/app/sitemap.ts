@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 
 const sitemap = (): MetadataRoute.Sitemap => [
   {
-    url: 'https://loanalyzer.vercel.app',
+    url: 'https://loananalyzer.parthchovatiya.tech',
     lastModified: new Date(),
     changeFrequency: 'monthly',
     priority: 1,

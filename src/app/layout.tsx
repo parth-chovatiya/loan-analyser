@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
-const siteUrl = 'https://loanalyzer.vercel.app';
+const siteUrl = 'https://loananalyzer.parthchovatiya.tech';
 const title = 'Loan Analyser - Free EMI Calculator & Pre-Payment Planner';
 const description =
   'Free online loan analysis tool for India. Calculate EMI breakdowns, plan pre-payments to save lakhs in interest, simulate what-if scenarios, track rate changes, and get smart repayment strategies. Works for home loans, personal loans, and car loans.';
