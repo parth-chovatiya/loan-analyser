@@ -1,0 +1,35 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "eeacac3a306d",
+  "session_id": "c0d99331-b2bf-4f2f-a49a-02cc8420bab9",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-12T17:20:57.013889Z",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".gitignore",
+    "src/components/charts/ComparisonChart.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-4-6",
+  "turn_id": "f5b1ade8c820",
+  "token_usage": {
+    "input_tokens": 27,
+    "cache_creation_tokens": 26841,
+    "cache_read_tokens": 578427,
+    "output_tokens": 7597,
+    "api_call_count": 23
+  },
+  "session_metrics": {
+    "turn_count": 2
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-12T17:20:56.908975Z",
+    "agent_lines": 189,
+    "human_added": 1,
+    "human_modified": 7,
+    "human_removed": 0,
+    "total_committed": 196,
+    "agent_percentage": 96.42857142857143
+  }
+}
