@@ -38,3 +38,6 @@ build
 .env.production.local
 .entire/
 .claude/
+.agents/
+skills-lock.json
+tsconfig.tsbuildinfo
