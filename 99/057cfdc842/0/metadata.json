@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "99057cfdc842",
+  "session_id": "552e73fa-9073-4c42-b2b9-c89372d246d7",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-14T05:55:26.592298Z",
+  "branch": "main",
+  "checkpoints_count": 4,
+  "files_touched": [
+    "package-lock.json",
+    "package.json",
+    "src/App.tsx",
+    "src/app/api/chat/route.ts",
+    "src/app/api/export-pdf/route.ts",
+    "src/app/api/export-pdf/template.ts",
+    "src/components/ChatWidget.tsx",
+    "src/components/LoanForm.tsx",
+    "src/components/SummaryCards.tsx",
+    "src/components/pdf/PdfReport.tsx",
+    "src/hooks/useChat.ts",
+    "src/hooks/useExportPdf.ts",
+    "src/types/chat.ts",
+    "src/utils/chatContext.ts"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "927d469e2af8",
+  "token_usage": {
+    "input_tokens": 52,
+    "cache_creation_tokens": 42664,
+    "cache_read_tokens": 1699322,
+    "output_tokens": 20433,
+    "api_call_count": 44
+  },
+  "session_metrics": {
+    "turn_count": 4
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-14T05:55:26.435787Z",
+    "agent_lines": 2862,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 2862,
+    "agent_percentage": 100
+  }
+}

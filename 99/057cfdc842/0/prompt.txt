@@ -1,0 +1,9 @@
+Great! Now, just mention disclaimer on the chatbot as we're using AI, and answer may not accurate... kind of small text. Also, change the chatbot opening icon to which looks like chatbot. Also, if you think, change the UI/UX of chatbot to make it user friendly on laptop and mobile screen.
+
+---
+
+Right now, If I ask questions other than loan, it was giving an answer. Like I asked question: How many states are there in india, it gives the answer. I wanna give the answer which is related to loan only.
+
+---
+
+Now, I asked question: What should I've to do to complete my loan in next 5 years? and ut doesn't give the answer. Ideally, they should think what to do and return the answer.
