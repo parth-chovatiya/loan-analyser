@@ -54,7 +54,7 @@ export const SummaryCards = ({ summary, loan }: Props) => {
     {
       label: 'Interest Saved',
       value: formatCurrency(summary.interestSaved),
-      sub: `${((summary.interestSaved / wop.totalInterest) * 100).toFixed(1)}% reduction`,
+      sub: `${((summary.interestSaved / wop.totalInterest) * 100).toFixed(1)}% reduction vs original schedule`,
       tooltip:
         'How much interest you are saving compared to the original schedule, thanks to your pre-payments.',
       icon: (

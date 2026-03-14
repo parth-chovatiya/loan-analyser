@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { PieChart, Pie, Cell } from 'recharts';
 import { BarChart, Bar } from 'recharts';
@@ -136,11 +136,10 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
     <div
       ref={ref}
       style={{
-        position: 'fixed',
-        left: 0,
+        position: 'absolute',
+        left: '-9999px',
         top: 0,
         width: '800px',
-        zIndex: -1,
         pointerEvents: 'none',
         background: '#fff',
         color: '#111',
@@ -267,7 +266,7 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr 1fr',
+          gridTemplateColumns: '1fr 1fr',
           gap: 10,
           marginBottom: 20,
         }}
@@ -308,7 +307,7 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       </h2>
 
       {/* Balance Over Time */}
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: 20, pageBreakInside: 'avoid' }}>
         <h3 style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
           Outstanding Balance Over Time
         </h3>
@@ -342,7 +341,7 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       </div>
 
       {/* Payment Breakup */}
-      <div style={{ marginBottom: 20 }} data-html2pdf-page-break="before">
+      <div style={{ marginBottom: 20, pageBreakInside: 'avoid' }} data-html2pdf-page-break="before">
         <h3 style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>Payment Breakup</h3>
         <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
           <PieChart width={300} height={CHART_H}>
@@ -427,7 +426,7 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       </div>
 
       {/* Yearly Summary */}
-      <div style={{ marginBottom: 20 }}>
+      <div style={{ marginBottom: 20, pageBreakInside: 'avoid' }}>
         <h3 style={{ fontSize: 13, fontWeight: 600, marginBottom: 6 }}>Yearly Summary</h3>
         <BarChart width={CHART_W} height={CHART_H} data={yearlyData}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -444,6 +443,7 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
       </div>
 
       {/* === SECTION 4: Amortization Schedule === */}
+      <div data-html2pdf-page-break="before" />
       <h2
         style={{
           fontSize: 16,
@@ -472,61 +472,102 @@ export const PdfReport = forwardRef<HTMLDivElement, Props>(function PdfReport(
           </tr>
         </thead>
         <tbody>
-          {schedule.map((row) => {
+          {schedule.map((row, idx) => {
             const rateChanged =
               hasRateChanges &&
               row.month > 1 &&
               row.annualRate !== schedule[row.month - 2]?.annualRate;
-            let bg = '#fff';
-            if (row.prePayment > 0)
-              bg = '#f0fdf4'; // green-50
-            else if (rateChanged) bg = '#eef2ff'; // indigo-50
+            const currentYear = row.date.substring(0, 4);
+            const prevYear = idx > 0 ? schedule[idx - 1].date.substring(0, 4) : currentYear;
+            const isYearChange = idx > 0 && currentYear !== prevYear;
+
+            let bg: string;
+            if (row.prePayment > 0) bg = '#f0fdf4';
+            else if (rateChanged) bg = '#eef2ff';
+            else bg = idx % 2 === 0 ? '#fff' : '#f9fafb';
+
+            const colCount = hasRateChanges ? 9 : 8;
 
             return (
-              <tr key={row.month} style={{ borderBottom: '1px solid #e5e7eb', background: bg }}>
-                <td style={{ padding: '3px' }}>{row.month}</td>
-                <td style={{ padding: '3px', whiteSpace: 'nowrap' }}>{formatDate(row.date)}</td>
-                {hasRateChanges && (
+              <React.Fragment key={row.month}>
+                {isYearChange && (
+                  <tr>
+                    <td
+                      colSpan={colCount}
+                      style={{
+                        padding: '4px 8px',
+                        background: '#e2e8f0',
+                        fontWeight: 700,
+                        fontSize: 11,
+                        color: '#334155',
+                        borderBottom: '2px solid #94a3b8',
+                      }}
+                    >
+                      Year {currentYear}
+                    </td>
+                  </tr>
+                )}
+                <tr style={{ borderBottom: '1px solid #e5e7eb', background: bg }}>
+                  <td style={{ padding: '3px' }}>{row.month}</td>
+                  <td style={{ padding: '3px', whiteSpace: 'nowrap' }}>{formatDate(row.date)}</td>
+                  {hasRateChanges && (
+                    <td
+                      style={{
+                        padding: '3px',
+                        textAlign: 'right',
+                        fontWeight: rateChanged ? 700 : 400,
+                        color: rateChanged ? '#4338ca' : undefined,
+                      }}
+                    >
+                      {row.annualRate}%
+                    </td>
+                  )}
+                  <td style={{ padding: '3px', textAlign: 'right' }}>
+                    {formatCurrency(row.openingBalance)}
+                  </td>
+                  <td style={{ padding: '3px', textAlign: 'right', color: '#dc2626' }}>
+                    {formatCurrency(row.interestComponent)}
+                  </td>
+                  <td style={{ padding: '3px', textAlign: 'right', color: '#15803d' }}>
+                    {formatCurrency(row.principalComponent)}
+                  </td>
                   <td
                     style={{
                       padding: '3px',
                       textAlign: 'right',
-                      fontWeight: rateChanged ? 700 : 400,
-                      color: rateChanged ? '#4338ca' : undefined,
+                      color: row.prePayment > 0 ? '#2563eb' : '#d1d5db',
                     }}
                   >
-                    {row.annualRate}%
+                    {row.prePayment > 0 ? formatCurrency(row.prePayment) : '-'}
                   </td>
-                )}
-                <td style={{ padding: '3px', textAlign: 'right' }}>
-                  {formatCurrency(row.openingBalance)}
-                </td>
-                <td style={{ padding: '3px', textAlign: 'right', color: '#dc2626' }}>
-                  {formatCurrency(row.interestComponent)}
-                </td>
-                <td style={{ padding: '3px', textAlign: 'right', color: '#15803d' }}>
-                  {formatCurrency(row.principalComponent)}
-                </td>
-                <td
-                  style={{
-                    padding: '3px',
-                    textAlign: 'right',
-                    color: row.prePayment > 0 ? '#2563eb' : '#d1d5db',
-                  }}
-                >
-                  {row.prePayment > 0 ? formatCurrency(row.prePayment) : '-'}
-                </td>
-                <td style={{ padding: '3px', textAlign: 'right' }}>
-                  {formatCurrency(row.totalPayment)}
-                </td>
-                <td style={{ padding: '3px', textAlign: 'right', fontWeight: 600 }}>
-                  {formatCurrency(row.closingBalance)}
-                </td>
-              </tr>
+                  <td style={{ padding: '3px', textAlign: 'right' }}>
+                    {formatCurrency(row.totalPayment)}
+                  </td>
+                  <td style={{ padding: '3px', textAlign: 'right', fontWeight: 600 }}>
+                    {formatCurrency(row.closingBalance)}
+                  </td>
+                </tr>
+              </React.Fragment>
             );
           })}
         </tbody>
       </table>
+
+      {/* Footer */}
+      <div
+        style={{
+          marginTop: 24,
+          paddingTop: 12,
+          borderTop: '1px solid #d1d5db',
+          fontSize: 9,
+          color: '#9ca3af',
+          textAlign: 'center',
+        }}
+      >
+        Disclaimer: This report is generated for informational purposes only. All calculations are
+        approximate and should not be considered as financial advice. Please consult your bank or
+        financial advisor for exact figures.
+      </div>
     </div>
   );
 });

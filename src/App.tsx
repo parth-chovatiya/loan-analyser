@@ -12,7 +12,7 @@ import { SummaryCards } from './components/SummaryCards';
 import { AmortizationTable } from './components/AmortizationTable';
 import { WhatIfSimulator } from './components/WhatIfSimulator';
 import { RecommendationPanel } from './components/RecommendationPanel';
-import { PdfReport } from './components/pdf/PdfReport';
+import { ChatWidget } from './components/ChatWidget';
 import { BalanceChart } from './components/charts/BalanceChart';
 import { PrincipalInterestChart } from './components/charts/PrincipalInterestChart';
 import { ComparisonChart } from './components/charts/ComparisonChart';
@@ -34,7 +34,7 @@ const App = () => {
     removeRateChange,
   } = useLoanData();
   const { summary, error } = useAmortization(loan, prePayments, rateChanges);
-  const { reportRef, isGenerating, exportPdf } = useExportPdf();
+  const { isGenerating, exportPdf } = useExportPdf();
   const {
     data: recommendations,
     loading: recLoading,
@@ -82,10 +82,10 @@ const App = () => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-3" style={{ display: 'none' }}>
+            <div className="flex items-center gap-3">
               {summary && loan && (
                 <button
-                  onClick={() => exportPdf()}
+                  onClick={() => exportPdf({ loan, prePayments, rateChanges, plannedPrePayments: plannedPPs })}
                   disabled={isGenerating}
                   className="cursor-pointer group inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all hover:bg-slate-800 hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                 >
@@ -306,22 +306,32 @@ const App = () => {
 
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white mt-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-slate-400">
-          Loan Analyser — All calculations are approximate and for informational purposes only
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
+          <a
+            href="https://forms.gle/Ua5i1PJ5ZA2ovFcb7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition-all hover:border-slate-300 hover:shadow-md"
+          >
+            <svg className="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
+            </svg>
+            Suggestions
+          </a>
+          <span className="text-xs text-slate-400">
+            Loan Analyser — All calculations are approximate and for informational purposes only
+          </span>
         </div>
       </footer>
 
-      {isGenerating && summary && loan && activeResult && (
-        <PdfReport
-          ref={reportRef}
+      {loan && summary && (
+        <ChatWidget
           loan={loan}
-          summary={summary}
           prePayments={prePayments}
           rateChanges={rateChanges}
-          activeResult={activeResult}
-          isSimulated={!!simulatedResult}
         />
       )}
+
     </div>
   );
 };
