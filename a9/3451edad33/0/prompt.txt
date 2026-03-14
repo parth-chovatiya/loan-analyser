@@ -1,0 +1,46 @@
+On the Local PDF was exported successfully, however I've deployed it (https://loananalyzer.parthchovatiya.tech/) and on that, the Export PDF was not working. Here is the cURL which is giving me Internal Server Error
+```
+curl 'https://loananalyzer.parthchovatiya.tech/api/export-pdf' \
+  -H 'accept: */*' \
+  -H 'accept-language: en-GB,en-US;q=0.9,en;q=0.8' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -b '_ga=GA1.1.151278876.1769691343; __vercel_toolbar=1; _vercel_session=1a5bf91f0377756faba40311b0; _ga_Q504H7MN5Y=GS2.1.s1773291795$o6$g0$t1773291795$j60$l0$h0' \
+  -H 'origin: https://loananalyzer.parthchovatiya.tech' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://loananalyzer.parthchovatiya.tech/' \
+  -H 'sec-ch-ua: "Not-A.Brand";v="24", "Chromium";v="146"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36' \
+  --data-raw '{"loan":{"id":"2bfd2c0e-8a88-4413-8d9c-3440d30c72c4","principal":3300000,"annualRate":8.45,"emi":26168,"emiDebitDay":10,"startDate":"2024-03-10"},"prePayments":[],"rateChanges":[],"plannedPrePayments":[]}'
+```
+Please identify an issue and help me to fix it.
+
+---
+
+Now, this is not working in the local environment
+```
+curl 'http://localhost:3000/api/export-pdf' \
+  -H 'Accept: */*' \
+  -H 'Accept-Language: en-GB,en-US;q=0.9,en;q=0.8' \
+  -H 'Cache-Control: no-cache' \
+  -H 'Connection: keep-alive' \
+  -H 'Content-Type: application/json' \
+  -b 'authjs.csrf-token=d0833fcfefbbe2697e3bbe6ad9d3fecaeb68b1f0be618ccebd3d5395ab2d28e7%7C1f1f38e98048413a3c48b81ac9c5de57fcd86098c90bdb122299b91535853956; authjs.callback-url=http%3A%2F%2Flocalhost%3A3000%2F; _ga=GA1.1.838736949.1759768177; rl_page_init_referrer=RudderEncrypt%3AU2FsdGVkX1%2FEmfuQpZlLwn%2B4sLZJ7Z%2BBMpEieQVqhp4%3D; rl_page_init_referring_domain=RudderEncrypt%3AU2FsdGVkX1%2BUHJTZvaHEt%2Fgaroe7xkXbrlmc2x%2FYFno%3D; rl_anonymous_id=RudderEncrypt%REDACTED%2FWlwO0uVpAc0S%REDACTED%3D%3D; rl_user_id=RudderEncrypt%REDACTED%2FcYYF7z3cidSW6TJ%2FBQqt7tt%2BWOx%2B3L%2B6vYTebnvAu19vUgpfHT8gwJ5s%2BAUkwHM8zB7%2FrNG6NArg4eIGkoUjMBXQxamH%2F%2B%2FQtfOceWwFRIHjcHEk6TQ%3D; rl_trait=RudderEncrypt%3AU2FsdGVkX1%REDACTED%REDACTED%2BpGKdjqKXN3mW47afLU%REDACTED%2Bc7fotyYNG55hjWOWFafWrbxtUHg%3D; rl_session=RudderEncrypt%3AU2FsdGVkX1%REDACTED%2BTZRpecXK27NBpBuP%2FmuoIIf9FsVLrhhUZm%2F%REDACTED%3D%3D; REDACTED%7B%22distinct_id%22%3A%22a18e210af9386fe29b7ff72b4051210980126eed4b105b2b73ab81ea48f14d84%232e4361ca-1eae-42f5-99b0-59ba78cbad27%22%2C%22%24sesid%22%3A%5Bnull%2Cnull%2Cnull%5D%2C%22%24epp%22%3Atrue%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22http%3A%2F%2Flocalhost%3A5678%2Fhome%2Fworkflows%22%7D%7D; _clck=h2ucus%5E2%5Eg34%5E0%5E2105; REDACTED; _ga_DN71BRML3J=GS2.1.s1773245185$o1$g1$t1773247082$j60$l0$h0; _ga_Q504H7MN5Y=GS2.1.s1773336133$o4$g1$t1773336839$j59$l0$h0; __next_hmr_refresh_hash__=a079496d899a90f52c8fa6806cab7036633457081244afec' \
+  -H 'Origin: http://localhost:3000' \
+  -H 'Pragma: no-cache' \
+  -H 'Referer: http://localhost:3000/' \
+  -H 'Sec-Fetch-Dest: empty' \
+  -H 'Sec-Fetch-Mode: cors' \
+  -H 'Sec-Fetch-Site: same-origin' \
+  -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/146.0.0.0 Safari/537.36' \
+  -H 'sec-ch-ua: "Not-A.Brand";v="24", "Chromium";v="146"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  --data-raw '{"loan":{"id":"0dc0ac70-473f-4bee-8392-3220ad038fe5","principal":3300000,"annualRate":8.45,"emi":26168,"emiDebitDay":10,"startDate":"2024-03-10"},"prePayments":[{"id":"02725811-c417-4bcb-8273-2dec9e2de7f2","date":"2025-11-24","amount":10000}],"rateChanges":[{"id":"74c5e4cc-4123-4c46-affb-00debe206346","date":"2025-04-10","newRate":8.2},{"id":"70416ecf-4a4d-404e-9bf5-ad8dca0ba45b","date":"2025-07-10","newRate":7.45},{"id":"99c4dd68-791b-4eb6-905f-adc4a5dadd09","date":"2026-01-10","newRate":7.2}],"plannedPrePayments":[]}'
+```
