@@ -1,0 +1,55 @@
+I wanna improve things. When I download PDF, PDF was blank. I want to export this to PDF. Please identify an issue and fix it.
+Also, for Chatbot, don't give too much descriptive answer. Just give what user asked for. Based on the user's question and the provided data, you've to perform calculation and give answer back to the user.
+
+---
+
+The PDF was printed with 1 blank page. I thing, we've to create use different way to print PDF. We've to create another end-point with this exact data, and we've to use pupetier to print that page. Please check if its possible and if yes, lets implement it.
+
+---
+
+Grat job! I really like the PDF reports. Now I wanna make some improvements as user got confused, like we've option to provide Annual Interest Rate. User usually provide it current interest rate, however it should be the starting interest rate. Please make an improvements of that. Also, lets make UI change, lets close the Load Details section, when user has entered all details. 
+Also, PDF looks good. However, there is always room for improvement. Lets identify what we can improve in the PDF, and implement it.
+
+---
+
+I wanna make small changes in PDF. As attached in the Image, the Summary metrics breaks in two pages due to that, cards are breaking. Also, on the right hand side, there is no border. Please fix this issue.
+
+---
+
+Still right border clipped. Please check it and fix it.
+
+---
+
+On the PDF, don't compare chart with the original and with adjustments. Just consider it with the pre-payment or rate changes (which is with adjustments)
+
+---
+
+On the Outstanding Balance Over Time chart lets write something on the y axis. Start Amortization Schedule with new page and distribute remaining space with that page content. On Yearly Summary write amount (persentage) for each year for both Principal + Prepayment and Interest inside chart row. Make above changes only in PDF.
+
+---
+
+On PDF: On the Yearly summary, on the right hand side, keep total amount, you've removed with above changes don't remove it. On the Web UI: Also, I wanna add button as attached image for any suggessions. If user clicks on that, I wanna redirect user to google form link: https://forms.gle/Ua5i1PJ5ZA2ovFcb7
+
+---
+
+As attached image, design breaks on the PDF. Lets keep the pre-payment and Rate changes data with the same line as above.
+
+---
+
+Also, there is written INTEREST SAVED, but I don't know from which. Can we write information for user to provide it is saved due to pre-payment on bot web and pdf.
+
+---
+
+for Pre-payment and Rate Changes, I don't wanna write it in one line. Keep it in seprate table. I just wanna add in single column as there was lable and text are not in one column as attached image.
+
+---
+
+As attached image, the amount and data are not in one column. Keep it in one column.
+
+---
+
+Keep Pre-payment & Rate Changes in full width as above table has
+
+---
+
+Just keep amount and pre-payment below its lable.
