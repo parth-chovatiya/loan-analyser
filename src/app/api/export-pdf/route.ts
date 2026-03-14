@@ -1,4 +1,6 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
+import { execSync } from 'child_process';
 import type { LoanInput, PrePayment, RateChange } from '@/types/loan';
 import { generateSummary } from '@/utils/summary';
 import { calculateAmortization } from '@/utils/amortization';
@@ -10,6 +12,36 @@ interface RequestBody {
   rateChanges: RateChange[];
   plannedPrePayments?: PrePayment[];
 }
+
+export const maxDuration = 30;
+
+const getLocalChromePath = (): string | null => {
+  const paths: Record<string, string[]> = {
+    darwin: [
+      '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+      '/Applications/Chromium.app/Contents/MacOS/Chromium',
+    ],
+    linux: [
+      '/usr/bin/google-chrome',
+      '/usr/bin/chromium-browser',
+      '/usr/bin/chromium',
+    ],
+    win32: [
+      'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+      'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    ],
+  };
+
+  for (const p of paths[process.platform] || []) {
+    try {
+      execSync(`test -f "${p}"`, { stdio: 'ignore' });
+      return p;
+    } catch {
+      // not found, try next
+    }
+  }
+  return null;
+};
 
 export const POST = async (request: Request) => {
   let browser;
@@ -39,9 +71,13 @@ export const POST = async (request: Request) => {
       isSimulated,
     });
 
+    const isLocal = process.env.NODE_ENV === 'development';
+    const localChrome = isLocal ? getLocalChromePath() : null;
+
     browser = await puppeteer.launch({
+      args: isLocal ? ['--no-sandbox', '--disable-setuid-sandbox'] : chromium.args,
+      executablePath: localChrome || (await chromium.executablePath()),
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
     const page = await browser.newPage();
