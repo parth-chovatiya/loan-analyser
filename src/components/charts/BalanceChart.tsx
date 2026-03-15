@@ -31,14 +31,13 @@ const useIsMobile = () => {
 };
 
 export const BalanceChart = ({ summary, simulatedResult }: Props) => {
-  const { withPrePayments, withoutPrePayments } = summary;
+  const { withPrePayments } = summary;
   const isMobile = useIsMobile();
 
   const currentMonthKey = format(new Date(), 'yyyy-MM');
 
   const maxLen = Math.max(
     withPrePayments.schedule.length,
-    withoutPrePayments.schedule.length,
     simulatedResult?.schedule.length ?? 0,
   );
 
@@ -46,7 +45,6 @@ export const BalanceChart = ({ summary, simulatedResult }: Props) => {
 
   const data = Array.from({ length: maxLen }, (_, i) => {
     const dateStr =
-      withoutPrePayments.schedule[i]?.date ??
       withPrePayments.schedule[i]?.date ??
       simulatedResult?.schedule[i]?.date ??
       '';
@@ -57,7 +55,6 @@ export const BalanceChart = ({ summary, simulatedResult }: Props) => {
     const entry: Record<string, number | string> = {
       month: i + 1,
       label: dateStr ? formatDate(dateStr) : '',
-      withoutPP: withoutPrePayments.schedule[i]?.closingBalance ?? 0,
       withPP: withPrePayments.schedule[i]?.closingBalance ?? 0,
     };
     if (simulatedResult) {
@@ -104,16 +101,8 @@ export const BalanceChart = ({ summary, simulatedResult }: Props) => {
           )}
           <Line
             type="monotone"
-            dataKey="withoutPP"
-            name="Original"
-            stroke="#94a3b8"
-            strokeWidth={2}
-            dot={false}
-          />
-          <Line
-            type="monotone"
             dataKey="withPP"
-            name="Actual"
+            name="Balance"
             stroke="#2563eb"
             strokeWidth={2}
             dot={false}

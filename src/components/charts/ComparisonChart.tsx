@@ -38,27 +38,17 @@ const useIsMobile = () => {
 };
 
 const BAR_COLORS = {
-  Original: { fill: '#64748b', label: 'Original (No Prepayments)' },
-  Actual: { fill: '#2563eb', label: 'Actual (With Prepayments)' },
+  Actual: { fill: '#2563eb', label: 'Actual' },
   Simulated: { fill: '#d97706', label: 'Simulated' },
-} as const;
-
-const PATTERNS = {
-  Original: 'pattern-original',
-  Actual: 'pattern-actual',
-  Simulated: 'pattern-simulated',
 } as const;
 
 const ChartPatterns = () => (
   <defs>
-    <pattern id={PATTERNS.Original} patternUnits="userSpaceOnUse" width="6" height="6">
-      <rect width="6" height="6" fill="#64748b" />
-    </pattern>
-    <pattern id={PATTERNS.Actual} patternUnits="userSpaceOnUse" width="6" height="6">
+    <pattern id="pattern-actual" patternUnits="userSpaceOnUse" width="6" height="6">
       <rect width="6" height="6" fill="#2563eb" />
       <line x1="0" y1="0" x2="6" y2="6" stroke="#1d4ed8" strokeWidth="1.5" />
     </pattern>
-    <pattern id={PATTERNS.Simulated} patternUnits="userSpaceOnUse" width="6" height="6">
+    <pattern id="pattern-simulated" patternUnits="userSpaceOnUse" width="6" height="6">
       <rect width="6" height="6" fill="#d97706" />
       <circle cx="3" cy="3" r="1" fill="#b45309" />
     </pattern>
@@ -113,60 +103,48 @@ const renderLegend = (props: { payload?: readonly LegendPayload[] }) => {
 
 export const ComparisonChart = ({ summary, simulatedResult }: Props) => {
   const isMobile = useIsMobile();
-  const { withPrePayments: wp, withoutPrePayments: wop } = summary;
+  const { withPrePayments: wp } = summary;
   const hasSimulated = !!simulatedResult;
 
   const data = useMemo(
     () => [
       {
         name: 'Total Interest',
-        Original: wop.totalInterest,
         Actual: wp.totalInterest,
         ...(simulatedResult ? { Simulated: simulatedResult.totalInterest } : {}),
       },
       {
         name: 'Total Paid',
-        Original: wop.totalAmountPaid,
         Actual: wp.totalAmountPaid,
         ...(simulatedResult ? { Simulated: simulatedResult.totalAmountPaid } : {}),
       },
     ],
-    [wop, wp, simulatedResult],
+    [wp, simulatedResult],
   );
 
-  const title = hasSimulated ? 'Original vs Actual vs Simulated' : 'Original vs Actual';
+  const title = hasSimulated ? 'Actual vs Simulated' : 'Loan Summary';
 
   const ariaLabel = useMemo(() => {
     const parts = [
-      `Loan comparison chart.`,
-      `Total Interest: Original ${formatCurrency(wop.totalInterest)}, Actual ${formatCurrency(wp.totalInterest)}${hasSimulated ? `, Simulated ${formatCurrency(simulatedResult!.totalInterest)}` : ''}.`,
-      `Total Paid: Original ${formatCurrency(wop.totalAmountPaid)}, Actual ${formatCurrency(wp.totalAmountPaid)}${hasSimulated ? `, Simulated ${formatCurrency(simulatedResult!.totalAmountPaid)}` : ''}.`,
+      `Loan summary chart.`,
+      `Total Interest: ${formatCurrency(wp.totalInterest)}${hasSimulated ? `, Simulated ${formatCurrency(simulatedResult!.totalInterest)}` : ''}.`,
+      `Total Paid: ${formatCurrency(wp.totalAmountPaid)}${hasSimulated ? `, Simulated ${formatCurrency(simulatedResult!.totalAmountPaid)}` : ''}.`,
     ];
     return parts.join(' ');
-  }, [wop, wp, simulatedResult, hasSimulated]);
-
-  const interestSaved = wop.totalInterest - wp.totalInterest;
-  const totalSaved = wop.totalAmountPaid - wp.totalAmountPaid;
+  }, [wp, simulatedResult, hasSimulated]);
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
       <div className="mb-4 flex flex-col gap-1 sm:mb-5">
         <h3 className="text-base font-bold text-slate-900 sm:text-lg">{title}</h3>
-        {interestSaved > 0 && (
-          <p className="text-xs text-emerald-600 sm:text-sm">
-            You save {formatCurrency(interestSaved)} in interest ({formatCurrency(totalSaved)}{' '}
-            total)
-          </p>
-        )}
       </div>
 
       {/* Accessible data table (visually hidden) */}
-      <table className="sr-only" role="table" aria-label="Loan comparison data">
-        <caption>Comparison of loan payment scenarios</caption>
+      <table className="sr-only" role="table" aria-label="Loan summary data">
+        <caption>Loan payment summary</caption>
         <thead>
           <tr>
             <th scope="col">Metric</th>
-            <th scope="col">Original</th>
             <th scope="col">Actual</th>
             {hasSimulated && <th scope="col">Simulated</th>}
           </tr>
@@ -175,7 +153,6 @@ export const ComparisonChart = ({ summary, simulatedResult }: Props) => {
           {data.map((row) => (
             <tr key={row.name}>
               <th scope="row">{row.name}</th>
-              <td>{formatCurrency(row.Original)}</td>
               <td>{formatCurrency(row.Actual)}</td>
               {hasSimulated && <td>{formatCurrency(row.Simulated!)}</td>}
             </tr>
@@ -214,7 +191,6 @@ export const ComparisonChart = ({ summary, simulatedResult }: Props) => {
               cursor={{ fill: 'rgba(148, 163, 184, 0.1)', radius: 4 }}
             />
             <Legend content={renderLegend} />
-            <Bar dataKey="Original" fill={BAR_COLORS.Original.fill} radius={[6, 6, 0, 0]} />
             <Bar dataKey="Actual" fill={BAR_COLORS.Actual.fill} radius={[6, 6, 0, 0]} />
             {hasSimulated && (
               <Bar dataKey="Simulated" fill={BAR_COLORS.Simulated.fill} radius={[6, 6, 0, 0]} />
