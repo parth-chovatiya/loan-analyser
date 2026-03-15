@@ -1,4 +1,5 @@
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { useLoanData } from './hooks/useLoanData';
 import { useAmortization } from './hooks/useAmortization';
 import { useExportPdf } from './hooks/useExportPdf';
@@ -159,8 +160,12 @@ const App = () => {
         {/* Pre-Payments & Rate Changes — Tabbed */}
         {loan && (
           <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
-            <div className="flex border-b border-slate-200">
+            <div className="flex border-b border-slate-200" role="tablist" aria-label="Loan adjustments">
               <button
+                role="tab"
+                id="tab-prepayments"
+                aria-selected={activeTab === 'prepayments'}
+                aria-controls="panel-prepayments"
                 onClick={() => setActiveTab('prepayments')}
                 className={`cursor-pointer flex-1 px-4 sm:px-6 py-3 sm:py-3.5 text-sm font-medium transition-colors relative ${
                   activeTab === 'prepayments'
@@ -179,6 +184,10 @@ const App = () => {
                 )}
               </button>
               <button
+                role="tab"
+                id="tab-rates"
+                aria-selected={activeTab === 'rates'}
+                aria-controls="panel-rates"
                 onClick={() => setActiveTab('rates')}
                 className={`cursor-pointer flex-1 px-4 sm:px-6 py-3 sm:py-3.5 text-sm font-medium transition-colors relative ${
                   activeTab === 'rates'
@@ -197,7 +206,12 @@ const App = () => {
                 )}
               </button>
             </div>
-            <div className="p-4 sm:p-6">
+            <div
+              role="tabpanel"
+              id={activeTab === 'prepayments' ? 'panel-prepayments' : 'panel-rates'}
+              aria-labelledby={activeTab === 'prepayments' ? 'tab-prepayments' : 'tab-rates'}
+              className="p-4 sm:p-6"
+            >
               {activeTab === 'prepayments' ? (
                 <PrePaymentList
                   prePayments={prePayments}
@@ -306,21 +320,32 @@ const App = () => {
 
       {/* Footer */}
       <footer className="border-t border-slate-200 bg-white mt-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex items-center justify-between">
-          <a
-            href="https://forms.gle/Ua5i1PJ5ZA2ovFcb7"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition-all hover:border-slate-300 hover:shadow-md"
-          >
-            <svg className="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
-            </svg>
-            Suggestions
-          </a>
-          <span className="text-xs text-slate-400">
-            Loan Analyser — All calculations are approximate and for informational purposes only
-          </span>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <a
+                href="https://forms.gle/Ua5i1PJ5ZA2ovFcb7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition-all hover:border-slate-300 hover:shadow-md"
+              >
+                <svg className="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
+                </svg>
+                Suggestions
+              </a>
+              <Link href="/privacy" className="text-xs text-slate-500 hover:text-slate-700 transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="text-xs text-slate-500 hover:text-slate-700 transition-colors">
+                Terms of Service
+              </Link>
+            </div>
+            <p className="text-xs text-slate-400">
+              Loan Analyser — All calculations are approximate and for informational purposes only.
+              Not financial advice.
+            </p>
+          </div>
         </div>
       </footer>
 

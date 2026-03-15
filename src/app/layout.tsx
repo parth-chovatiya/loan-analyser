@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Analytics } from '@vercel/analytics/next';
+import { CookieConsent } from '../components/CookieConsent';
 import './globals.css';
 
 const siteUrl = 'https://loananalyzer.parthchovatiya.tech';
@@ -92,20 +93,20 @@ const jsonLd = {
   ],
 };
 
-// Next.js requires a default export for layout — must not be a named arrow export
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-      </head>
-      <body>
-        {children}
-        <Analytics />
-      </body>
-    </html>
-  );
-}
+const RootLayout = ({ children }: { children: React.ReactNode }) => (
+  <html lang="en">
+    <head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </head>
+    <body>
+      {children}
+      <CookieConsent />
+      <Analytics />
+    </body>
+  </html>
+);
+
+export default RootLayout;

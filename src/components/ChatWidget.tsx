@@ -145,7 +145,7 @@ export const ChatWidget = ({ loan, prePayments, rateChanges }: Props) => {
                   </div>
                   <div>
                     <p className="text-sm font-medium text-slate-700">Ask about your loan</p>
-                    <p className="text-xs text-slate-400 mt-1">I have your loan details and can help with analysis</p>
+                    <p className="text-xs text-slate-400 mt-1">Your loan details are sent to OpenAI to generate responses</p>
                   </div>
                   <div className="flex flex-wrap justify-center gap-2 mt-2">
                     {SUGGESTIONS.map((s) => (

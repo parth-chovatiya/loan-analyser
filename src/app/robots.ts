@@ -6,6 +6,7 @@ const robots = (): MetadataRoute.Robots => ({
     allow: '/',
     disallow: '/api/',
   },
+  sitemap: 'https://loananalyzer.parthchovatiya.tech/sitemap.xml',
 });
 
 export default robots;
