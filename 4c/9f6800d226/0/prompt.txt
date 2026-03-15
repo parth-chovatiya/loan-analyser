@@ -1,0 +1,13 @@
+Also, please identify the changes required and make this application SEO, complience ready.
+
+---
+
+Please see what we've to write in the Coockie consent. I don't think we've to write about openai, vercel etc... we just have to write like, all data are stored in your browser etc... kind of things. Also, once user click on the gotit, and refresh page, it should not appears again verify this...
+
+---
+
+Also, check the privacy policy and terms of service if there is any changes...
+
+---
+
+Also convert all function to an arrow function
