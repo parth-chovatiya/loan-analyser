@@ -1,0 +1,1 @@
+I wanna make one improvements. Graph contains Original vs Actual. I wanna remove the original and show only actual with the considering the pre-payment and interest rate change. Do it for all of the graph. Please implement it and give me working code.
