@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Plus } from 'lucide-react';
 import type { PrePayment } from '../types/loan';
 
 interface Props {
@@ -57,15 +58,7 @@ export const PrePaymentForm = ({ onAdd }: Props) => {
         type="submit"
         className="cursor-pointer inline-flex items-center justify-center gap-1.5 rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-blue-700 hover:shadow-md active:scale-[0.98]"
       >
-        <svg
-          className="h-4 w-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-        </svg>
+        <Plus className="h-4 w-4" strokeWidth={2} />
         Add
       </button>
     </form>

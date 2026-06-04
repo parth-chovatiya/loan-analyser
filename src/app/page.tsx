@@ -31,8 +31,8 @@ const Page = () => (
       <h2>Frequently Asked Questions</h2>
       <h3>How much can I save with pre-payments?</h3>
       <p>
-        Even small pre-payments can save lakhs in interest over the loan tenure. Use our
-        calculator to see the exact savings for your loan.
+        Even small pre-payments can save lakhs in interest over the loan tenure. Use our calculator
+        to see the exact savings for your loan.
       </p>
       <h3>Does this work for home loans, car loans, and personal loans?</h3>
       <p>

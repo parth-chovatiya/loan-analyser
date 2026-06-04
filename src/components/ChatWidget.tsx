@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { MessageCircle, X, Trash2, Send, Bot } from 'lucide-react';
 import { useChat } from '../hooks/useChat';
 import type { LoanInput, PrePayment, RateChange } from '../types/loan';
 
@@ -64,14 +65,9 @@ export const ChatWidget = ({ loan, prePayments, rateChanges }: Props) => {
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
       >
         {isOpen ? (
-          <svg className="h-5 w-5 sm:h-6 sm:w-6" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <X className="h-5 w-5 sm:h-6 sm:w-6" strokeWidth={2} />
         ) : (
-          /* Chat bubble icon */
-          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.48 2 2 5.92 2 10.66c0 2.75 1.5 5.2 3.84 6.82-.1 1.16-.52 2.8-2.08 4.12 0 0 3.24-.24 5.56-2.18.86.18 1.74.28 2.68.28 5.52 0 10-3.92 10-8.74S17.52 2 12 2zm-3.5 10.5a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3.5 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3.5 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" />
-          </svg>
+          <MessageCircle className="h-6 w-6" strokeWidth={2} />
         )}
       </button>
 
@@ -101,9 +97,7 @@ export const ChatWidget = ({ loan, prePayments, rateChanges }: Props) => {
             <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 sm:bg-none sm:bg-white">
               <div className="flex items-center gap-2.5">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 sm:bg-gradient-to-br sm:from-blue-600 sm:to-indigo-600">
-                  <svg className="h-4 w-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 5.92 2 10.66c0 2.75 1.5 5.2 3.84 6.82-.1 1.16-.52 2.8-2.08 4.12 0 0 3.24-.24 5.56-2.18.86.18 1.74.28 2.68.28 5.52 0 10-3.92 10-8.74S17.52 2 12 2z" />
-                  </svg>
+                  <Bot className="h-4 w-4 text-white" />
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold text-white sm:text-slate-900">Loan Assistant</h3>
@@ -117,9 +111,7 @@ export const ChatWidget = ({ loan, prePayments, rateChanges }: Props) => {
                     className="cursor-pointer rounded-lg p-1.5 text-white/70 sm:text-slate-400 transition-colors hover:bg-white/10 sm:hover:bg-slate-100 hover:text-white sm:hover:text-slate-600"
                     title="Clear chat"
                   >
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                    </svg>
+                    <Trash2 className="h-4 w-4" strokeWidth={2} />
                   </button>
                 )}
                 <button
@@ -127,9 +119,7 @@ export const ChatWidget = ({ loan, prePayments, rateChanges }: Props) => {
                   className="cursor-pointer rounded-lg p-1.5 text-white/70 sm:text-slate-400 transition-colors hover:bg-white/10 sm:hover:bg-slate-100 hover:text-white sm:hover:text-slate-600"
                   title="Close"
                 >
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  <X className="h-4 w-4" strokeWidth={2} />
                 </button>
               </div>
             </div>
@@ -139,9 +129,7 @@ export const ChatWidget = ({ loan, prePayments, rateChanges }: Props) => {
               {messages.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-full gap-4 text-center px-2">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50">
-                    <svg className="h-7 w-7 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C6.48 2 2 5.92 2 10.66c0 2.75 1.5 5.2 3.84 6.82-.1 1.16-.52 2.8-2.08 4.12 0 0 3.24-.24 5.56-2.18.86.18 1.74.28 2.68.28 5.52 0 10-3.92 10-8.74S17.52 2 12 2zm-3.5 10.5a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3.5 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm3.5 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" />
-                    </svg>
+                    <Bot className="h-7 w-7 text-blue-600" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-slate-700">Ask about your loan</p>
@@ -168,9 +156,7 @@ export const ChatWidget = ({ loan, prePayments, rateChanges }: Props) => {
                 >
                   {msg.role === 'assistant' && (
                     <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 mr-2 mt-1">
-                      <svg className="h-3 w-3 text-blue-600" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 5.92 2 10.66c0 2.75 1.5 5.2 3.84 6.82-.1 1.16-.52 2.8-2.08 4.12 0 0 3.24-.24 5.56-2.18.86.18 1.74.28 2.68.28 5.52 0 10-3.92 10-8.74S17.52 2 12 2z" />
-                      </svg>
+                      <Bot className="h-3 w-3 text-blue-600" />
                     </div>
                   )}
                   <div
@@ -213,9 +199,7 @@ export const ChatWidget = ({ loan, prePayments, rateChanges }: Props) => {
                   disabled={!input.trim() || isLoading}
                   className="cursor-pointer flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-sm transition-all hover:shadow-md disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-                  </svg>
+                  <Send className="h-4 w-4" strokeWidth={2} />
                 </button>
               </div>
               {/* AI Disclaimer */}

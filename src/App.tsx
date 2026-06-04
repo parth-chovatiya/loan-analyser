@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { Landmark, Download, Loader2, AlertCircle, Sparkles, MessageSquare } from 'lucide-react';
 import { useLoanData } from './hooks/useLoanData';
 import { useAmortization } from './hooks/useAmortization';
 import { useExportPdf } from './hooks/useExportPdf';
@@ -14,6 +15,10 @@ import { AmortizationTable } from './components/AmortizationTable';
 import { WhatIfSimulator } from './components/WhatIfSimulator';
 import { RecommendationPanel } from './components/RecommendationPanel';
 import { ChatWidget } from './components/ChatWidget';
+import { PayoffCountdown } from './components/PayoffCountdown';
+import { HealthScore } from './components/HealthScore';
+import { RateSensitivity } from './components/RateSensitivity';
+import { InsightStrip } from './components/InsightStrip';
 import { BalanceChart } from './components/charts/BalanceChart';
 import { PrincipalInterestChart } from './components/charts/PrincipalInterestChart';
 import { ComparisonChart } from './components/charts/ComparisonChart';
@@ -62,19 +67,7 @@ const App = () => {
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 shadow-md shadow-blue-600/20">
-                <svg
-                  className="h-5 w-5 text-white"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="2"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
-                  />
-                </svg>
+                <Landmark className="h-5 w-5 text-white" strokeWidth={2} />
               </div>
               <div>
                 <h1 className="text-lg font-bold text-slate-900 leading-tight">Loan Analyser</h1>
@@ -92,38 +85,15 @@ const App = () => {
                 >
                   {isGenerating ? (
                     <>
-                      <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        />
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                        />
-                      </svg>
+                      <Loader2 className="h-4 w-4 animate-spin" strokeWidth={2} />
                       Generating...
                     </>
                   ) : (
                     <>
-                      <svg
+                      <Download
                         className="h-4 w-4 transition-transform group-hover:-translate-y-0.5"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                        />
-                      </svg>
+                        strokeWidth={2}
+                      />
                       Export PDF
                     </>
                   )}
@@ -140,19 +110,7 @@ const App = () => {
 
         {error && (
           <div className="flex items-center gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-            <svg
-              className="h-5 w-5 shrink-0 text-red-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
-              />
-            </svg>
+            <AlertCircle className="h-5 w-5 shrink-0 text-red-400" strokeWidth={1.5} />
             {error}
           </div>
         )}
@@ -236,6 +194,27 @@ const App = () => {
             {/* Summary Cards */}
             <SummaryCards summary={summary} loan={loan} />
 
+            {/* Payoff Countdown */}
+            <PayoffCountdown
+              result={activeResult!}
+              loan={loan}
+              isSimulated={!!simulatedResult}
+            />
+
+            {/* Health Score + Rate Sensitivity */}
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2">
+              <HealthScore loan={loan} summary={summary} />
+              <RateSensitivity
+                loan={loan}
+                prePayments={prePayments}
+                rateChanges={rateChanges}
+                baseline={summary.withPrePayments}
+              />
+            </div>
+
+            {/* Key Insights */}
+            <InsightStrip result={activeResult!} />
+
             {/* Recommendations */}
             <RecommendationPanel
               data={recommendations}
@@ -258,19 +237,7 @@ const App = () => {
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 px-4 sm:px-5 py-3 text-sm">
                 <div className="flex items-center gap-3 flex-1 min-w-0">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-amber-100">
-                    <svg
-                      className="h-4 w-4 text-amber-600"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z"
-                      />
-                    </svg>
+                    <Sparkles className="h-4 w-4 text-amber-600" strokeWidth={2} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <span className="font-semibold text-amber-800">Simulation active</span>
@@ -329,9 +296,7 @@ const App = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition-all hover:border-slate-300 hover:shadow-md"
               >
-                <svg className="h-4 w-4 text-slate-500" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 01-.923 1.785A5.969 5.969 0 006 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337z" />
-                </svg>
+                <MessageSquare className="h-4 w-4 text-slate-500" strokeWidth={1.5} />
                 Suggestions
               </a>
               <Link href="/privacy" className="text-xs text-slate-500 hover:text-slate-700 transition-colors">

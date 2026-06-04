@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { FlaskConical, ChevronDown, Plus, Clock, X } from 'lucide-react';
 import type { PrePayment, AmortizationResult } from '../types/loan';
 import { formatCurrency, formatDate, formatDateFull } from '../utils/formatters';
 import { InfoTooltip } from './InfoTooltip';
@@ -57,19 +58,7 @@ export const WhatIfSimulator = ({
       >
         <div className="flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 shadow-md shadow-amber-500/20">
-            <svg
-              className="h-5 w-5 text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
-              />
-            </svg>
+            <FlaskConical className="h-5 w-5 text-white" strokeWidth={2} />
           </div>
           <div>
             <h2 className="text-base font-bold text-slate-900">What-If Simulator</h2>
@@ -82,15 +71,10 @@ export const WhatIfSimulator = ({
               {plannedPPs.length}
             </span>
           )}
-          <svg
+          <ChevronDown
             className={`h-5 w-5 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-          </svg>
+            strokeWidth={2}
+          />
         </div>
       </button>
 
@@ -133,15 +117,7 @@ export const WhatIfSimulator = ({
               type="submit"
               className="cursor-pointer inline-flex items-center justify-center gap-1.5 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-amber-600 hover:shadow-md active:scale-[0.98]"
             >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
+              <Plus className="h-4 w-4" strokeWidth={2} />
               Simulate
             </button>
           </form>
@@ -155,19 +131,7 @@ export const WhatIfSimulator = ({
                 >
                   <div className="flex items-center gap-4">
                     <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-600">
-                      <svg
-                        className="h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
+                      <Clock className="h-4 w-4" strokeWidth={2} />
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-slate-900">
@@ -180,15 +144,7 @@ export const WhatIfSimulator = ({
                     onClick={() => onRemove(pp.id)}
                     className="cursor-pointer rounded-lg p-1.5 text-slate-400 sm:opacity-0 transition-all hover:bg-red-50 hover:text-red-500 sm:group-hover:opacity-100"
                   >
-                    <svg
-                      className="h-4 w-4"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="2"
-                      stroke="currentColor"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                    <X className="h-4 w-4" strokeWidth={2} />
                   </button>
                 </div>
               ))}
