@@ -1,0 +1,10 @@
+/init
+
+---
+
+Now I wanna add more kind of an analytics which help users to understand their loan details better way. I want you to find out what should we've to add so that for users it should be easy. And add that.
+Also, I wamma make UI/UX better, lets change the icons if needed, and add new one, make it good responsive websites etc...And give me working website after verifying it
+
+---
+
+Great! The things you've added above, can we add it with good UI/UX with the color combinations according to the website, which users like
